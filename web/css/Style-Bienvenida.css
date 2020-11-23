@@ -8,8 +8,13 @@ and open the template in the editor.
     Author     : DanielHernandezReyes
 */
 
+@font-face{
+    font-family: Roboto;
+    src: url(../fonts/Roboto-Regular.ttf)
+}
+
 * {
-    font-family: 'Roboto', sans-serif;
+    font-family: Roboto, sans-serif;
 }
 
 .content {
