@@ -12,6 +12,10 @@
         <title>Login</title>
     </head>
     <body>
+    <center>
         <h1>Hello World!</h1>
+        <p>Hola amigos mucho gusto JAJAJA</p>
+        
+    </center>
     </body>
 </html>

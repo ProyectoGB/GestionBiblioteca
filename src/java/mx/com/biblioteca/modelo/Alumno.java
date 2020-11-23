@@ -7,7 +7,7 @@ package mx.com.biblioteca.modelo;
 
 /**
  *
- * @author DanielHernandezReyes
+ * @author Equipo: "Los Bellacosos"
  */
 public class Alumno {
     
