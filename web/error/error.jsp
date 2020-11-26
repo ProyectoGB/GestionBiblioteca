@@ -10,6 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Error</title>
+        <link href="../css/Style-Error.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
     <center>
@@ -18,6 +19,8 @@
         <h2>Descripción del error:</h2>
         <br>
         <h3><%= request.getAttribute("msjError") %></h3>
+        <br>
+         <a href="http://localhost:8080/GestionBiblioteca/session/home.jsp"><input id="regresar" type="button" value="Regresar"></a>
     </center>
     </body>
 </html>
