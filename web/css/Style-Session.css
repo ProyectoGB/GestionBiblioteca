@@ -1,0 +1,113 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 26/11/2020, 12:09:36 PM
+    Author     : DanielHernandezReyes
+*/
+
+@font-face{
+    font-family: Roboto;
+    src: url(../fonts/Roboto-Regular.ttf)
+}
+* {
+    font-family: Roboto, sans-serif;
+}
+body {
+    margin: 0;
+}
+.content-header {
+    height: 4em;
+    background: #156590;
+    list-style: none;
+    margin: 0 0;
+}
+.content-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background: #156590;
+    height: 4em;
+    width: 100%;
+    
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-end;
+}
+
+.content {
+    display: block;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.content-field {
+    display: block;
+    margin-top: 2.5em;
+    margin-left: auto;
+    margin-right: auto;
+}
+.content-field_line {
+    display: block;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: .7em;
+}
+
+.content-field_input_uno {
+    display: inline-block;
+    font-size: .9em;
+    width: 15em;
+    margin-right: 1em;
+    margin-left: 6em;
+    outline-color: #f57716;
+}
+.content-field_input_dos {
+    display: inline-block;
+    font-size: .9em;
+    width: 15em;
+    margin-right: 1em;
+    margin-left: 1.7em;
+    outline-color: #f57716;
+}
+.content-field_input_submit {
+    display: block;
+    width: 50%;
+    color: #fff;
+    font-size: 1em;
+    border-color: #00b7ff;
+    background: #00b7ff;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: .5em;
+    padding-top: .5em;
+    padding-bottom: .5em;
+}
+.content-field_input_submit:hover {
+    background: #ff2929;
+    border-color: #ff292A;
+}
+
+.content-field_uno {
+    display: inline-block;
+    width: 13em;
+    font-size: .9em;
+    margin-right: 1em;
+    margin-left: 1em;
+    outline-color: #f57716;
+}
+
+.content-footer_link {
+    text-decoration: none;
+    color: #fff;
+    display: block;
+    padding: 1.4em 2.5em 1.4em 2.5em;
+    text-align: center;
+}
+.content-footer_link:hover{
+    background: #1565C0;
+}
