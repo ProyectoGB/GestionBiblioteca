@@ -30,7 +30,7 @@ body{
 .content {
     display: inline-block;
     width: calc(38% - 1.5em);
-    background-color: #20e6bf;
+    background-color: #02fa86;
     margin-top: 2em;
     margin-left: auto;
     margin-right: auto;
@@ -87,6 +87,13 @@ body{
     border-color: #00b7ff;
     background: #00b7ff;
     cursor: pointer;
+    display: block;
+    color: #fff;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: .5em;
+    padding-bottom: .5em;
 }
 .content-linea_cuatro {
     display: block;
@@ -94,4 +101,13 @@ body{
     text-decoration: none;
     border-color: #00b7ff;
     background: #00b7ff;
+}
+
+.content-linea_cuatro:hover {
+    background: #ff2929;
+    border-color: #ff292A;
+}
+.content-linea_tres:hover {
+    background: #ff2929;
+    border-color: #ff292A;
 }

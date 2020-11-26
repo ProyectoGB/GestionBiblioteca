@@ -16,9 +16,9 @@
         <div class="content-principal" >
             <div class="content">
                 <img class="content-usuario_img" src="img/usuario.svg">
-                    <a href="https://www.flaticon.es/autores/chanut" title="Chanut"></a>
-                    <a href="https://www.flaticon.es/" title="Flaticon"></a>
-                    <form action="session/home.jsp" method="POST" >
+                <a href="https://www.flaticon.es/autores/chanut" title="Chanut"></a>
+                <a href="https://www.flaticon.es/" title="Flaticon"></a>
+                <form action="session/home.jsp" method="POST" >
                     <div class="content-linea" >
                         <label class="content-linea_label_uno" for="user">Usuario:</label>
                         <input class="content-linea_input" id="user" type="text" />
@@ -28,7 +28,7 @@
                         <input class="content-linea_input" id="pass" type="password" />
                     </div>
                     <div class="content-linea" >
-                        <input class="content-linea_boton content-linea_tres" type="submit" value="Ingresar">
+                        <input class="content-linea_tres" type="submit" value="Ingresar">
                     </div>
                     <div class="content-linea"  >
                         <a class="content-linea_boton content-linea_cuatro" href="index.html" >Cancelar</a>

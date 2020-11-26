@@ -16,7 +16,7 @@
         <header>
             <nav>
                 <ul class="content">
-                    <li><a class="content-item" href="session.jsp">Cuenta</a></li>
+                    
                     <li><a class="content-item" href="../student/addStudent.jsp">Alumnos</a></li>
                     <li><a class="content-item" href="../report/addReport.jsp">Reportes</a></li>
                     <li><a class="content-item" href="../visit/changeVisit.jsp">Visitas</a></li>
@@ -26,5 +26,26 @@
                 </ul>
             </nav>
         </header>
+        <div class="content-center">
+            <form class="content-center_form" action="../index.html" method="POST">
+                <div class="content-center_line" >
+                    <img class="content-center_line_img" src="../img/usuario.svg" alt="usuario">
+                </div>
+                <div class="content-center_line" >
+                    <h1 class="content-line_h1" >Bienvenido</h1>
+                    <label class="content-line_label" >asdads dasads dasds</label>
+                </div>
+                <div class="content-center_line" >
+                    <input class="content-line_input" type="submit" value="cerrar sesión"/>
+                </div>
+            </form>
+        </div>
+        <footer class="content-footer" >
+            <nav>
+                <ul class="content">
+                    <li><a class="content-item" href="session.jsp">Cuenta</a></li>
+                </ul>
+            </nav>
+        </footer>
     </body>
 </html>
