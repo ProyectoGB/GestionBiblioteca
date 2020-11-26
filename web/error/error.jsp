@@ -12,6 +12,12 @@
         <title>Error</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+    <center>
+        <h1>¡Error en el sitema!</h1>
+        <br><br>
+        <h2>Descripción del error:</h2>
+        <br>
+        <h3><%= request.getAttribute("msjError") %></h3>
+    </center>
     </body>
 </html>
