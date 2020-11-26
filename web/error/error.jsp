@@ -20,7 +20,7 @@
         <br>
         <h3><%= request.getAttribute("msjError") %></h3>
         <br>
-         <a href="http://localhost:8080/GestionBiblioteca/session/home.jsp"><input id="regresar" type="button" value="Regresar"></a>
+        <a href="http://localhost:8080/GestionBiblioteca/session/home.jsp"><input id="regresar" type="button" value="Regresar al inicio"></a>
     </center>
     </body>
 </html>
