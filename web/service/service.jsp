@@ -18,6 +18,7 @@
                     <input type="text" id="buscar" name="buscar">
                 </label>  
                 <input class="content-header_input" type="submit" value="Buscar">
+                <input class="content-header_input" type="button" value="Modificar">
             </form>
             <a class="content-header_link" href="../session/home.jsp">Regresar</a>
         </header>
@@ -58,7 +59,7 @@
                             </label>
                         </div>
                         <div class="content-center_line">
-                            <input class="button" type="submit" value="Agregar">
+                            <input class="button" type="submit" value="Actualizar">
                         </div>
                     </fieldset> 
                 <form>

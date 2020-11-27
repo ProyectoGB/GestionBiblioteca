@@ -8,13 +8,19 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Agregar Alumno</title>
+        <title>Add student</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="../css/Style-AddStudent.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         <header class="content-header">
+            <form class="content-header">
+                <label class="content-header_line" >Matricula:
+                    <input type="text" id="buscar" name="buscar">
+                </label>  
+                <input class="content-header_input" type="submit" value="Buscar">
+            </form>
             <a class="content-header_link" href="changeStudent.jsp">Modificar</a>
             <a class="content-header_link" href="../session/home.jsp">Regresar</a>
         </header>
