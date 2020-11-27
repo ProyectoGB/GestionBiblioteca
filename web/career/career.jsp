@@ -9,22 +9,24 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="../css/Style-Career.css" rel="stylesheet" type="text/css"/>
         <title>Career</title>
     </head>
     <body>
         <header class="content-header">
-            <form class="content-header">
+            <form class="content-header" action="" method="POST">
                 <label class="content-header_line" >Identificador:
                     <input type="text" id="buscar" name="buscar">
                 </label>  
                 <input class="content-header_input" type="submit" value="Buscar">
+                <input class="content-header_input" type="button" value="Modificar">
             </form>
             <a class="content-header_link" href="../session/home.jsp">Regresar</a>
         </header>
         <section>
             <nav>
-                <form method="POST" >
+                <form action="" method="POST" >
                     <fieldset >
                         <legend>Carrera nueva</legend>
                         <div class="content-center_line">
@@ -44,7 +46,7 @@
                     </fieldset> 
                 </form>
                 <div class="content-center_line"></div>
-                <form method="POST" >
+                <form action="" method="POST" >
                     <fieldset>
                         <legend>Modificar carrera</legend>
                         <div class="content-center_line">
@@ -66,7 +68,7 @@
                             <input class="button" type="submit" value="Actualizar">
                         </div>
                     </fieldset> 
-                <form>
+                </form>
             </nav>
             <article>
                 <table>
