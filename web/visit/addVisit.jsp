@@ -14,62 +14,65 @@
     </head>
     <body>
         <header class="content-header">
-            <a class="content-header_link" href="../session/home.jsp">Regresar</a>
+            <a class="content-header_link" href="../session/home.jsp">Cancelar</a>
         </header>
         <section>
             <nav>
-                <form>
-                <fieldset >
-                    <legend>Alumno</legend>
-                    <div class="content-center_line">
-                        <label for="matricula">Matricula:</label>
-                        <input class="right" type="text" id="matricula" name="matricula"  > 
-                    </div>
-                    <div class="content-center_line">
-                        <input class="button" type="submit" value="Buscar">
-                    </div>
-                    
-                </fieldset> 
-                <form>
+                <form action="" method="POST">
+                    <fieldset >
+                        <legend>Alumno</legend>
+                        <div class="content-center_line">
+                            <label for="matricula">Matricula:</label>
+                            <input class="right" type="text" id="matricula" name="matricula"  > 
+                        </div>
+                        <div class="content-center_line">
+                            <input class="button" type="submit" value="Buscar">
+                        </div>
+                    </fieldset> 
+                </form>
                 <div class="content-center_line"></div>
                 <fieldset>
                     <div class="content-center_line">
-                        <label for="ap">Apellido Paterno:</label>
-                        <label for="ap"> Apellido Paterno:</label>
+                        <label>Apellido Paterno:</label>
+                        <label> Apellido Paterno:</label>
                     </div>
                     <div class="content-center_line">
-                        <label for="am">Apellido Materno:</label>
-                        <label for="am">Apellido Materno: asddasd</label>
+                        <label>Apellido Materno:</label>
+                        <label>Apellido Materno: asddasd</label>
                     </div>
                     <div class="content-center_line">
-                        <label for="am">Nombre:</label>
-                        <label for="am">Nombre: dasdad</label>
+                        <label>Nombre:</label>
+                        <label>Nombre: dasdad</label>
                     </div>
                     <div class="content-center_line">
-                        <label for="nombre">Carrera:</label>
-                        <label for="nombre">Carrera dasdas</label>
+                        <label>Carrera:</label>
+                        <label>Carrera dasdas</label>
                     </div>
                 </fieldset>
-                    
             </nav>
             <article>
                 <form>
-                <fieldset>
-                    <legend>Solicitar servicio</legend>
-                    <div class="content-center_line">
-                        <label for="estado">Estado: </label>
-                        <label class="right">
-                            <input type="checkbox" id="estado" name="estado" value="estado">
-                            Solicitar
-                        </label>
-                    </div>
-                    
-                    <div class="content-center_line">
-                        <input class="button" type="submit" value="Generar">
-                    </div>
+                    <fieldset>
+                        <legend>Solicitar servicio</legend>
+                        <%
+                            for (int i = 0; i < 5; i++) {
+                        %>
+                        <div class="content-center_line">
+                            <label for="estado">Estado: </label>
+                            <label class="right">
+                                <input type="checkbox" id="estado" name="estado" value="">
+                                Solicitar
+                            </label>
+                        </div>
+                        <%
+                            }
+                        %>
+                        <div class="content-center_line">
+                            <input class="button" type="submit" value="Agregar">
+                        </div>
 
-                </fieldset> 
-                <form>
+                    </fieldset> 
+                </form>
             </article>
         </section>
         <footer class="content-footer"></footer>

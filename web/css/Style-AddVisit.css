@@ -19,13 +19,14 @@ and open the template in the editor.
 
 body {
   margin: 0;
+  padding: 0;
 }
 
 .content-header {
     height: 4em;
     background: #156590;
     list-style: none;
-    margin: 0 0;
+    margin: 0;
     display: flex;
     flex-flow: row wrap;
     justify-content: flex-end;
@@ -46,14 +47,13 @@ body {
 }
 .content-header_line{
     text-align: end;
-    color: #fff;
     width: 30em;
     font-size: 1em;
     margin-top: 1.1em;
     margin-right: .5em;
 }
 .content-header_line, input{
-    font-size: 1em;
+    font-size: 1.1em;
 }
 
 .content-header_input {
@@ -88,9 +88,6 @@ nav {
   margin-top: 1em;
   margin-left: 15%;
 }
-
-
-
 article {
   float: left;
   padding: 20px;
@@ -118,23 +115,24 @@ article {
 }
 
 table {
-  border-collapse: collapse;
-  width: 100%;
+    border-collapse: collapse;
+    width: 100%;
 }
 th {
-  border: 2px solid #dddddd;
-  text-align: left;
-  padding: .5em;
+    border: 2px solid #dddddd;
+    text-align: left;
+    padding: .5em;
 }
 tr:nth-child(even) {
-  background-color: #dddddd;
+    background-color: #dddddd;
 }
 
 .button {
     display: block;
     font-size: 1em;
-    height: 2em;
+    height: 2.5em;
     width: 60%;
+    color: #fff;
     background: #00aae8;
     border-color: #00b7f8;
     margin-top: .5em;
