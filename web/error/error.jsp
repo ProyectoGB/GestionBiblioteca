@@ -13,14 +13,15 @@
         <link href="../css/Style-Error.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-    <center>
-        <h1>¡Error en el sitema!</h1>
-        <br><br>
-        <h2>Descripción del error:</h2>
-        <br>
-        <h3><%= request.getAttribute("msjError") %></h3>
-        <br>
-        <a href="http://localhost:8080/GestionBiblioteca/session/home.jsp"><input id="regresar" type="button" value="Regresar a la pagina principal"></a>
-    </center>
+        <header class="content-header"></header>
+        <center>
+            <h1>¡Error en el sistema!</h1>
+            <h2>Descripción del error:</h2>
+            <p>
+                <%= request.getAttribute("msjError") %>
+            </p>
+            <a class="content-link" href="../session/home.jsp" >Regresar</a>
+        </center>
+        <footer class="content-footer"></footer>
     </body>
 </html>
