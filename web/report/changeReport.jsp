@@ -14,6 +14,12 @@
     </head>
     <body>
         <header class="content-header">
+            <form class="content-header" action="" method="POST">
+                <label class="content-header_line" >Identificador:
+                    <input type="text" id="buscar" name="buscar">
+                </label>  
+                <input class="content-header_input" type="submit" value="Modificar">
+            </form>
             <a class="content-header_link" href="../session/home.jsp">Regresar</a>
         </header>
         <section>
