@@ -21,6 +21,7 @@
                     <li><a class="content-item" href="../report/addReport.jsp">Reportes</a></li>
                     <li><a class="content-item" href="../visit/changeVisit.jsp">Visitas</a></li>
                     <li><a class="content-item" href="../service/service.jsp">Servicios</a></li>
+                    <li><a class="content-item" href="../career/career.jsp">Carreras</a></li>
                     <li><a class="content-item" href="../visit/addVisit.jsp">Control</a></li>
                     <li><a class="content-item" href="../user/addUser.jsp">Usuarios</a></li>
                 </ul>
