@@ -15,102 +15,105 @@
     </head>
     <body>
         <header class="content-header">
-            <form class="content-header">
-                <label class="content-header_line" >Matricula:
-                    <input type="text" id="buscar" name="buscar">
-                </label>  
-                <input class="content-header_input" type="submit" value="Buscar">
-            </form>
-            
             <a class="content-header_link" href="addStudent.jsp">Regresar</a>
         </header>
         <section>
             <nav>
                 <form>
                 <fieldset >
-                    <legend>Estudiantes</legend>
+                    <legend>Modificar estudiante</legend>
                     <div class="content-center_line">
-                        <label for="matricula"> Matricula:</label>
+                        <label for="matricula">Matricula:</label>
                         <input class="right" type="text" id="matricula" name="matricula"  > 
                     </div>
                     <div class="content-center_line">
-                        <label for="ap"> Apellido Paterno:</label>
-                        <input class="right" type="text" id="ap"  name="ap"   > 
+                        <label for="apP">Apellido Paterno:</label>
+                        <input class="right" type="text" id="aP"  name="ap"   > 
                     </div>
                     <div class="content-center_line">
-                        <label for="am"> Apellido Materno:</label>
-                        <input class="right" type="text" id="am" name="am"  > 
+                        <label for="apM">Apellido Materno:</label>
+                        <input class="right" type="text" id="apM" name="am"  > 
                     </div>
                     <div class="content-center_line">
-                        <label for="nombre">Nombre 1:</label>
-                        <input class="right" type="text" id="nombreUno" name="nombre" > 
+                        <label for="n1">Nombre 1:</label>
+                        <input class="right" type="text" id="n1" name="nombre" > 
                     </div>
                     <div class="content-center_line">
-                        <label for="nombre">Nombre 2:</label>
-                        <input class="right" type="text" id="nombreDos" name="nombre"  > 
+                        <label for="n2">Nombre 2:</label>
+                        <input class="right" type="text" id="n2" name="nombre"  > 
                     </div>
                     <div class="content-center_line">
-                        <label for="nombre">Nombre 3:</label>
-                        <input class="right" type="text" id="nombreTres" name="nombre"  > 
+                        <label for="n3">Nombre 3:</label>
+                        <input class="right" type="text" id="n3" name="nombre"  > 
                     </div>
                     <div class="content-center_line">
-                        <label for="nombre">Nombre 4:</label>
-                        <input class="right" type="text" id="nombreCuatro" name="nombre"  > 
+                        <label for="n4">Nombre 4:</label>
+                        <input class="right" type="text" id="n4" name="nombre"  > 
                     </div>
                     <div class="content-center_line">
-                        <label for="carrera">Carrera:</label>
-                        <select class="right" id="carrera" name="carrera">
+                        <label for="car">Carrera:</label>
+                        <select class="right" id="car" name="carrera">
                             <option value="sistemas">Sistemas Computacionales</option>
                         </select>
                     </div>
                     
                     <div class="content-center_line">
-                        <label for="estado">Estado:</label>
+                        <label for="est">Estado:</label>
                         <label class="right" for="estado">
-                            <input type="checkbox" id="estado" name="estado" value="estado">
+                            <input type="checkbox" id="est" name="estado" value="estado">
                             Activo
                         </label>
                     </div>
                     <div class="content-center_line">
-                        <input class="button" type="submit" value="Modificar">
+                        <input class="button" type="submit" value="Actualizar">
                     </div>
 
                 </fieldset> 
                 <form>
             </nav>
             <article> 
-                <table>
-                    <thead>
-                        <tr>
-                            <th style="width: 6em;">Matricula</th>
-                            <th style="width: 2em;">Estado</th>
-                            <th style="width: 8em;">Apellido P</th>
-                            <th style="width: 8em;">Apellido M</th>
-                            <th style="width: 15em;">Nombre</th>
-                            <th style="width: 2em;">Carrera</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <%
-                            for (int i = 0; i < 5; i++) {
-
-                            %>
+                <fieldset >
+                    <legend>Actualizado</legend>
+                    <div class="content-center_line">
+                        <label> Matricula:</label>
+                        <label class="right">dasdas das</label> 
+                    </div>
+                    <div class="content-center_line">
+                        <label> Apellido paterno:</label>
+                        <label class="right">dasdas das</label> 
+                    </div>
+                    <div class="content-center_line">
+                        <label> Apellido materno:</label>
+                        <label class="right">dasdas das</label> 
+                    </div>
+                    <div class="content-center_line">
+                        <label>Nombre 1:</label>
+                        <label class="right">dasdas das</label> 
+                    </div>
+                    <div class="content-center_line">
+                        <label>Nombre 2:</label>
+                        <label class="right">dasdas das</label> 
+                    </div>
+                    <div class="content-center_line">
+                        <label>Nombre 3:</label>
+                        <label class="right">dasdas das</label> 
+                    </div>
+                    <div class="content-center_line">
+                        <label>Nombre 4:</label>
+                        <label class="right">dasdas das</label> 
+                    </div>
+                    <div class="content-center_line">
+                        <label>Carrera:</label>
+                        <label class="right">dasdas das dasdassda asdasd dasds</label>
+                    </div>
                     
-                            <tr>
-                                <th>123456789012</th>
-                                <th><%=i %></th>
-                                <th><%=i %></th>
-                                <th><%=i %></th>
-                                <th><%=i %></th>
-                                <th><%=i %></th>
-                                
-                            </tr>
-                            <%
-                                }
-                            %>
-                        
-                    </tbody>
-              </table>
+                    <div class="content-center_line">
+                        <label>Estado:</label>
+                        <label class="right">asd</label>
+                    </div>
+
+                </fieldset>
+                
             </article>
         </section>
         <footer class="content-footer"></footer>

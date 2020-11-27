@@ -81,20 +81,22 @@ body {
 
 nav {
   float: left;
-  width: 25%;
-  height: 20em; 
+  width: 40%;
+  height: 32em; 
   padding: .5em;
   margin-top: 1em;
+  margin-left: 6em;
 }
 
 
 
 article {
   float: left;
-  padding: 20px;
-  width: 70%;
+  padding: .5em;
+  width: 40%;
   margin-top: 1em;
   min-height: 32em;
+  margin-left: 4em;
 }
 
 .content-center_line {
@@ -108,7 +110,8 @@ article {
 
 .right {
     float: right;
-    width: 9em;
+    width: 15em;
+    font-size: 1.1em;
     margin-right: 0em;
     outline-color: #f57716;
 }
@@ -131,6 +134,7 @@ tr:nth-child(even) {
     font-size: 1em;
     height: 2em;
     width: 60%;
+    color: #fff;
     background: #00aae8;
     border-color: #00b7f8;
     margin-top: .5em;
