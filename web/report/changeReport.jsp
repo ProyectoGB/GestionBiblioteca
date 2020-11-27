@@ -9,17 +9,11 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="../css/Style-ChangeReport.css" rel="stylesheet" type="text/css"/>
         <title>Change report</title>
     </head>
     <body>
         <header class="content-header">
-            <form class="content-header">
-                <label class="content-header_line" >Identificador:
-                    <input type="text" id="buscar" name="buscar">
-                </label>  
-                <input class="content-header_input" type="submit" value="Modificar">
-            </form>
-            
             <a class="content-header_link" href="../session/home.jsp">Regresar</a>
         </header>
         <section>
@@ -44,7 +38,7 @@
                         <input class="right" type="text" id="nombreUno" name="nombre" > 
                     </div>
                     <div class="content-center_line">
-                        <input class="button" type="submit" value="Generar">
+                        <input class="button" type="submit" value="Actualizar">
                     </div>
 
                 </fieldset> 
@@ -54,10 +48,8 @@
                 <table>
                     <thead>
                         <tr>
-                            <th style="width: 2em;">Identificador</th>
-                            <th style="width: 2em;">Fecha</th>
-                            <th style="width: 2em;">Fecha inicio</th>
-                            <th style="width: 2em;">Fecha fin</th>
+                            <th style="width: 2em;">Carrera</th>
+                            <th style="width: 2em;">Cantidad</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -69,7 +61,29 @@
                             <tr>
                                 <th>123456789012</th>
                                 <th><%=i %></th>
-                                <th><%=i %></th>
+                                
+                            </tr>
+                            <%
+                                }
+                            %>
+                        
+                    </tbody>
+                </table>
+                <table style="margin-top: 1em;">
+                    <thead>
+                        <tr>
+                            <th style="width: 2em;">Motivo</th>
+                            <th style="width: 2em;">Cantidad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%
+                            for (int i = 0; i < 5; i++) {
+
+                            %>
+                    
+                            <tr>
+                                <th>123456789012</th>
                                 <th><%=i %></th>
                                 
                             </tr>
@@ -78,7 +92,7 @@
                             %>
                         
                     </tbody>
-              </table>
+                </table>
             </article>
         </section>
         <footer class="content-footer"></footer>
