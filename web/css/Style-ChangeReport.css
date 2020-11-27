@@ -135,6 +135,7 @@ tr:nth-child(even) {
     font-size: 1em;
     height: 2em;
     width: 60%;
+    color: #fff;
     background: #00aae8;
     border-color: #00b7f8;
     margin-top: .5em;

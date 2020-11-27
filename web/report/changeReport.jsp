@@ -9,45 +9,40 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="../css/Style-ChangeReport.css" rel="stylesheet" type="text/css"/>
         <title>Change report</title>
     </head>
     <body>
         <header class="content-header">
-            <form class="content-header" action="" method="POST">
-                <label class="content-header_line" >Identificador:
-                    <input type="text" id="buscar" name="buscar">
-                </label>  
-                <input class="content-header_input" type="submit" value="Modificar">
-            </form>
-            <a class="content-header_link" href="../session/home.jsp">Regresar</a>
+            
+            <a class="content-header_link" href="addReport.jsp">Regresar</a>
         </header>
         <section>
             <nav>
-                <form>
-                <fieldset >
-                    <legend>Reporte</legend>
-                    <div class="content-center_line">
-                        <label for="matricula">Fecha:</label>
-                        <input class="right" type="date" id="matricula" name="matricula"  > 
-                    </div>
-                    <div class="content-center_line">
-                        <label for="ap">Fecha de inicio:</label>
-                        <input class="right" type="date" id="ap"  name="ap"   > 
-                    </div>
-                    <div class="content-center_line">
-                        <label for="am">Fecha de fin:</label>
-                        <input class="right" type="date" id="am" name="am"  > 
-                    </div>
-                    <div class="content-center_line">
-                        <label for="nombre">Usuario:</label>
-                        <input class="right" type="text" id="nombreUno" name="nombre" > 
-                    </div>
-                    <div class="content-center_line">
-                        <input class="button" type="submit" value="Actualizar">
-                    </div>
-
-                </fieldset> 
+                <form action="" method="POST">
+                    <fieldset >
+                        <legend>Reporte</legend>
+                        <div class="content-center_line">
+                            <label for="matricula">Fecha:</label>
+                            <input class="right" type="date" id="matricula" name="matricula"  > 
+                        </div>
+                        <div class="content-center_line">
+                            <label for="ap">Fecha de inicio:</label>
+                            <input class="right" type="date" id="ap"  name="ap"   > 
+                        </div>
+                        <div class="content-center_line">
+                            <label for="am">Fecha de fin:</label>
+                            <input class="right" type="date" id="am" name="am"  > 
+                        </div>
+                        <div class="content-center_line">
+                            <label for="nombre">Usuario:</label>
+                            <label class="right">ads sad</label>
+                        </div>
+                        <div class="content-center_line">
+                            <input class="button" type="submit" value="Actualizar">
+                        </div>
+                    </fieldset> 
                 <form>
             </nav>
             <article> 
