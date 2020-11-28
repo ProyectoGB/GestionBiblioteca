@@ -19,7 +19,7 @@
                 <img class="content-margin content-usuario_img" src="img/usuario.svg">
                 <a href="https://www.flaticon.es/autores/chanut" title="Chanut"></a>
                 <a href="https://www.flaticon.es/" title="Flaticon"></a>
-                <form action="Login?sal=exit" method="POST" >
+                <form action="Login" method="POST" >
                     <div class="content-margin content-linea" >
                         <label class="content-linea_label_uno" for="user">Usuario:</label>
                         <input class="content-linea_input" id="user" type="text" name="idUsuario" />

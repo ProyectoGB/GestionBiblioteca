@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import mx.com.biblioteca.modelo.beans.Usuario;
 
 /**
  *
@@ -60,7 +61,14 @@ public class Conexion {
         this.user = "alumno";
         this.pass = "Alum5no";
     }
-    
+    public void conexionAdmin(){
+        this.user = "DBA-Biblioteca";
+        this.pass = "Daniel@1";
+    }
+    public void conexionUsuarios(Usuario user){
+        this.user = user.getIdUsuario();
+        this.pass = user.getContra();
+    }
 /**
  * Este Metodo obtiene la conexion a la BD.
  * @return La conexion.
@@ -98,6 +106,8 @@ public class Conexion {
     }    
 /**
  * Este Metodo se conecta a la BD
+     * @throws java.sql.SQLException
+     * @throws java.lang.Exception
  */    
     
     public void cerrarConexion() throws SQLException, Exception {

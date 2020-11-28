@@ -52,7 +52,7 @@ public class UsuarioDAO {
     public void cerrarSesion(Usuario user) throws SQLException, Exception{
         String sql = "CALL proce_cerrar_secion(?)";
         Conexion cn = new Conexion();
-        cn.conexionNormal();
+        cn.conexionUsuarios(user);
         cn.conectar();
         cn.prepareStatement(sql);
         cn.getEstado().setString(1, user.getIdUsuario());

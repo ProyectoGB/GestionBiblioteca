@@ -6,10 +6,7 @@
 package mx.com.biblioteca.controlador;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -50,7 +47,7 @@ public class Login extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String clave = request.getParameter("clave");
         try {
-            if(clave.equals("log")){
+            if(clave.equals("log")) {
                 Usuario user = new Usuario();
                 user.setIdUsuario(request.getParameter("idUsuario"));
                 user.setContra(request.getParameter("contra"));
@@ -65,7 +62,7 @@ public class Login extends HttpServlet {
                     request.getRequestDispatcher("login.jsp").forward(request, response);
                 }
                 
-            }else {
+            } else {
                 HttpSession sesion = request.getSession();
                 Usuario user = (Usuario) sesion.getAttribute("user");
                 sesion.invalidate();
