@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import mx.com.biblioteca.modelo.Session;
 import mx.com.biblioteca.modelo.UsuarioDAO;
 import mx.com.biblioteca.modelo.beans.Usuario;
 
@@ -56,7 +57,8 @@ public class Login extends HttpServlet {
                 
                 if(user != null){
                     HttpSession sesion = request.getSession();
-                    sesion.setAttribute("user", user);
+                    Session sec = new Session(user, null);
+                    sesion.setAttribute("user", sec);
                     response.sendRedirect("session/home.jsp");
                 }else{
                     response.sendRedirect("login.jsp");
@@ -64,10 +66,12 @@ public class Login extends HttpServlet {
                 
             } else {
                 HttpSession sesion = request.getSession();
-                Usuario user = (Usuario)sesion.getAttribute("user");
+                Session sec = (Session)sesion.getAttribute("user");
+                
                 UsuarioDAO crl = new UsuarioDAO();
-                crl.cerrarSesion(user);
+                crl.cerrarSesion(sec.getUser());
                 sesion.invalidate();
+                
                 response.sendRedirect("login.jsp");
             }
             
