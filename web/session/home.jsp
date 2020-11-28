@@ -3,7 +3,8 @@
     Created on : 19/11/2020, 10:13:31 AM
     Author     : DanielHernandezReyes
 --%>
-
+<%@page import="mx.com.biblioteca.modelo.beans.Usuario"%>
+<%@page session="true" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -30,19 +31,21 @@
             </nav>
         </header>
         <div class="content-center">
-            <form class="content-center_form" action="../index.html" method="POST">
+            <form class="content-center_form" action="Login" method="POST">
                 <div class="content-center_line content-margin" >
                     <img class="content-center_line_img" src="../img/usuario.svg" alt="usuario">
                 </div>
                 <div class="content-center_line content-margin" >
                     <h1 class="content-line_h1 content-margin" >Bienvenido</h1>
                     <%
+                        HttpSession sesion = request.getSession();
+                        Usuario user = (Usuario) sesion.getAttribute("user");
                     %>
-                    <label class="content-line_label" >asdads dasads dasds</label>
-                    <%
-                    %>
+                    <label class="content-line_label" ><%= user.getNombre() %> <%= user.getApePaterno() %></label>
+                    
                 </div>
                 <div class="content-center_line content-margin" >
+                    <input type="hidden" name="clave" value="exit"/>
                     <input class="content-line_input" type="submit" value="Cerrar sesión"/>
                 </div>
             </form>

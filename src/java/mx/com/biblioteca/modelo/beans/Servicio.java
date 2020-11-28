@@ -3,32 +3,32 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package mx.com.biblioteca.modelo;
+package mx.com.biblioteca.modelo.beans;
 
 /**
  *
  * @author DanielHernandezReyes
  */
-public class Carrera {
-    private int idCarrera;
+public class Servicio {
+    private int idServicio;
     private String nombre;
     private String estado;
 
-    public Carrera() {
+    public Servicio() {
     }
 
-    public Carrera(int idCarrera, String nombre, String estado) {
-        this.idCarrera = idCarrera;
+    public Servicio(int idServicio, String nombre, String estado) {
+        this.idServicio = idServicio;
         this.nombre = nombre;
         this.estado = estado;
     }
 
-    public int getIdCarrera() {
-        return idCarrera;
+    public int getIdServicio() {
+        return idServicio;
     }
 
-    public void setIdCarrera(int idCarrera) {
-        this.idCarrera = idCarrera;
+    public void setIdServicio(int idServicio) {
+        this.idServicio = idServicio;
     }
 
     public String getNombre() {
@@ -46,5 +46,6 @@ public class Carrera {
     public void setEstado(String estado) {
         this.estado = estado;
     }
+    
     
 }

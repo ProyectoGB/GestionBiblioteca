@@ -18,7 +18,10 @@
             <h1>¡Error en el sistema!</h1>
             <h2>Descripción del error:</h2>
             <p>
-                <%= request.getAttribute("msjError") %>
+                <%= request.getAttribute("msj") %>
+            </p>
+            <p>
+                <%= request.getAttribute("ex") %>
             </p>
             <a class="content-link" href="../session/home.jsp" >Regresar</a>
         </center>
