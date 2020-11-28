@@ -51,32 +51,34 @@ public class Login extends HttpServlet {
                 Usuario user = new Usuario();
                 user.setIdUsuario(request.getParameter("idUsuario"));
                 user.setContra(request.getParameter("contra"));
-
                 UsuarioDAO crl = new UsuarioDAO();
                 user = crl.iniciarSesion(user);
+                
                 if(user != null){
                     HttpSession sesion = request.getSession();
                     sesion.setAttribute("user", user);
-                    request.getRequestDispatcher("session/home.jsp").forward(request, response);
+                    response.sendRedirect("session/home.jsp");
                 }else{
-                    request.getRequestDispatcher("login.jsp").forward(request, response);
+                    response.sendRedirect("login.jsp");
                 }
                 
             } else {
                 HttpSession sesion = request.getSession();
-                Usuario user = (Usuario) sesion.getAttribute("user");
+                Usuario user = (Usuario)sesion.getAttribute("user");
+                UsuarioDAO crl = new UsuarioDAO();
+                crl.cerrarSesion(user);
                 sesion.invalidate();
-                request.getRequestDispatcher("session/home.jsp").forward(request, response);
+                response.sendRedirect("login.jsp");
             }
             
         } catch (SQLException ex) {
             request.setAttribute("msj", ex.getMessage());
             request.setAttribute("ex", ex);
-            request.getRequestDispatcher("error/error.jsp").forward(request, response);
+            response.sendRedirect("error/error.jsp");
         } catch (Exception ex) {
             request.setAttribute("msj", ex.getMessage());
             request.setAttribute("ex", ex);
-            request.getRequestDispatcher("error/error.jsp").forward(request, response);
+            response.sendRedirect("error/error.jsp");
         }
     }
 

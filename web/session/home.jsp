@@ -31,7 +31,7 @@
             </nav>
         </header>
         <div class="content-center">
-            <form class="content-center_form" action="Login" method="POST">
+            <form class="content-center_form" action="/GestionBiblioteca/Login" method="POST">
                 <div class="content-center_line content-margin" >
                     <img class="content-center_line_img" src="../img/usuario.svg" alt="usuario">
                 </div>
