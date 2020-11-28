@@ -64,7 +64,7 @@ public class Login extends HttpServlet {
                     response.sendRedirect("login.jsp");
                 }
                 
-            } else {
+            } if(clave.equals("exit")) {
                 HttpSession sesion = request.getSession();
                 Session sec = (Session)sesion.getAttribute("user");
                 

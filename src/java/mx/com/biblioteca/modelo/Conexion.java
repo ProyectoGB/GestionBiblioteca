@@ -63,7 +63,7 @@ public class Conexion {
     }
     public void conexionAdmin(){
         this.user = "DBA-Biblioteca";
-        this.pass = "Daniel@1";
+        this.pass = "Its0eh@1";
     }
     public void conexionUsuarios(Usuario user){
         this.user = user.getIdUsuario();

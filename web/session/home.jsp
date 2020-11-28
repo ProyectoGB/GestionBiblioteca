@@ -71,7 +71,7 @@
                     <%
                         if (sec.getMensaje() != null) {
                     %>
-                    <li><a class="content-item" href="#"><%= sec.getMensaje() %></a></li>
+                    <li><a class="content-item" href=""><%= sec.getMensaje() %></a></li>
                     <%
                         sec.setMensaje(null);
                         }

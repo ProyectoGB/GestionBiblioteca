@@ -5,6 +5,7 @@
  */
 package mx.com.biblioteca.modelo;
 
+import java.util.ArrayList;
 import mx.com.biblioteca.modelo.beans.Usuario;
 
 /**
@@ -15,6 +16,7 @@ public class Session {
     
     private Usuario user;
     private String mensaje;
+    private ArrayList<Usuario> listaUsuario;
 
     public Session() {
     }
@@ -38,6 +40,14 @@ public class Session {
 
     public void setMensaje(String mensaje) {
         this.mensaje = mensaje;
+    }
+
+    public ArrayList<Usuario> getListaUsuario() {
+        return listaUsuario;
+    }
+
+    public void setListaUsuario(ArrayList<Usuario> listaUsuario) {
+        this.listaUsuario = listaUsuario;
     }
     
     

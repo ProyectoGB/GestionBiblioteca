@@ -7,6 +7,7 @@ package mx.com.biblioteca.modelo;
 
 import java.sql.SQLException;
 import java.sql.SQLWarning;
+import java.util.ArrayList;
 import mx.com.biblioteca.modelo.beans.Usuario;
 
 /**
@@ -68,8 +69,27 @@ public class UsuarioDAO {
         cn.getConexion().close();
     }
     
-    public Usuario buscar(Usuario user){
-        return user;
+    public ArrayList<Usuario> buscar(Usuario user, Usuario bus) throws SQLException, Exception{
+        String sql = "select idUsuario, apePaterno, nombre, estado, tipo from usuario where idUsuario like ?;";
+        Conexion cn = new Conexion();
+        cn.conexionUsuarios(user);
+        cn.conectar();
+        cn.prepareStatement(sql);
+        cn.getEstado().setString(1, bus.getIdUsuario());
+        cn.setResultado(cn.getEstado().executeQuery());
+        ArrayList<Usuario> list = new ArrayList<>();
+        while(cn.getResultado().next()){
+            Usuario u = new Usuario();
+            u.setIdUsuario(cn.getResultado().getString("idUsuario"));
+            u.setApePaterno(cn.getResultado().getString("apePaterno"));
+            u.setNombre(cn.getResultado().getString("nombre"));
+            u.setEstado(cn.getResultado().getString("estado"));
+            u.setTipo(cn.getResultado().getString("tipo"));
+            list.add(u);
+        }
+        cn.getEstado().close();
+        cn.getConexion().close();
+        return list;
     }
     
     public Usuario iniciarSesion(Usuario user) throws SQLException, Exception{

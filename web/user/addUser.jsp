@@ -4,6 +4,9 @@
     Author     : DanielHernandezReyes
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="mx.com.biblioteca.modelo.beans.Usuario"%>
+<%@page import="mx.com.biblioteca.modelo.Session"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -13,10 +16,16 @@
         <title>Add user</title>
     </head>
     <body>
+        <%
+            HttpSession sesion = request.getSession();
+            Session sec = (Session) sesion.getAttribute("user");
+            //Usuario user = sec.getUser();
+        %>
         <header class="content-header">
-            <form class="content-header">
+            <form class="content-header" action="/GestionBiblioteca/ControlUsuario" method="POST">
                 <label class="content-header_line" >Identificador:
-                    <input type="text" id="buscar" name="buscar">
+                    <input type="hidden" name="clave" value="b"/>
+                    <input type="text" id="buscar" name="idUsuario">
                 </label>  
                 <input class="content-header_input" type="submit" value="Buscar">
             </form>
@@ -25,33 +34,37 @@
         </header>
         <section>
         <nav>
-            <form>
+            <form action="/GestionBiblioteca/ControlUsuario" method="POST">
             <fieldset>
-                <legend>Estudiante</legend>
+                <legend>Usuario</legend>
                 <div class="content-item">
-                    <label for="matricula">Usuario:</label>
-                    <input class="right" type="text" id="matricula" name="matricula"> 
+                    <label for="us">Username:</label>
+                    <input class="right" type="text" id="us" name="username"> 
                 </div> 
                 <div class="content-item">
-                    <label for="ap">Nombre:</label>
-                    <input class="right" type="text" id="ap"  name="ap"   > 
+                    <label for="no">Nombre:</label>
+                    <input class="right" type="text" id="no"  name="nombre"   > 
                 </div>
                 <div class="content-item">
-                    <label for="am">Apellido paterno:</label>
-                    <input class="right" type="text" id="am" name="am"  >
+                    <label for="ap">Apellido paterno:</label>
+                    <input class="right" type="text" id="ap" name="apePaterno"  >
                 </div>
                 <div class="content-item">
-                    <label for="nombre">Tipo:</label>
-                    <input class="right" type="text" id="nombreUno" name="nombre" >
+                    <label for="ti">Tipo:</label>
+                    <select class="right" id="ti" name="tipo">
+                        <option value="ADM">Administrador</option>
+                        <option value="ENC">Encargado</option>
+                    </select>
                 </div>
                 <div class="content-item">
-                    <label for="estado">Estado: </label>
+                    <label for="es">Estado: </label>
                     <label class="right">
-                        <input type="checkbox" id="estado" name="estado" value="estado">
+                        <input type="checkbox" id="es" name="estado" value="BLO">
                         Bloqueado
                     </label>
                 </div>
                 <div class="content-item">
+                    <input type="hidden" name="clave" value="a"/>
                     <input class="button" type="submit" value="Agregar">
                 </div>
             </fieldset>
@@ -70,20 +83,19 @@
                     </thead>
                     <tbody>
                         <%
-                            for (int i = 0; i < 5; i++) {
-
+                            if(sec.getListaUsuario()!= null){
+                            ArrayList<Usuario> lis = sec.getListaUsuario();
+                            for (Usuario u : lis) {
                             %>
-                    
                             <tr>
-                                <th>123456789012</th>
-                                <th><%=i %></th>
-                                <th><%=i %></th>
-                                <th><%=i %></th>
-                                <th><%=i %></th>
-                                
+                                <th><%=u.getIdUsuario() %></th>
+                                <th><%=u.getNombre() %></th>
+                                <th><%=u.getApePaterno() %></th>
+                                <th><%=u.getEstado() %></th>
+                                <th> <%= (u.getTipo().equals("ADM"))?"Administrador":"Encargado"%></th>
                             </tr>
                             <%
-                                }
+                                }}
                             %>
                         
                     </tbody>
@@ -91,7 +103,16 @@
             </article>
         </section>
         <footer class="content-footer">
-            
+            <ul class="content">
+                    <%
+                        if (sec.getMensaje() != null) {
+                    %>
+                    <li><a class="content-item_footer" href=""><%= sec.getMensaje() %></a></li>
+                    <%
+                        sec.setMensaje(null);
+                        }
+                    %>
+                </ul>
         </footer>
     </body>
 </html>
