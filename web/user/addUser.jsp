@@ -127,7 +127,6 @@
             function clicF (e) {
                document.getElementById('buscar').value = e.id;
             }
-
         </script>
     </body>
 </html>

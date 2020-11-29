@@ -6,6 +6,7 @@
 package mx.com.biblioteca.modelo;
 
 import java.util.ArrayList;
+import mx.com.biblioteca.modelo.beans.Carrera;
 import mx.com.biblioteca.modelo.beans.Usuario;
 
 /**
@@ -17,6 +18,7 @@ public class Session {
     private Usuario user;
     private String mensaje;
     private ArrayList<Usuario> listaUsuario;
+    private ArrayList<Carrera> listaCarrera;
     private String errorMsj;
     private String errorExe;
     private String errorUrl;
@@ -51,6 +53,14 @@ public class Session {
 
     public void setListaUsuario(ArrayList<Usuario> listaUsuario) {
         this.listaUsuario = listaUsuario;
+    }
+
+    public ArrayList<Carrera> getListaCarrera() {
+        return listaCarrera;
+    }
+
+    public void setListaCarrera(ArrayList<Carrera> listaCarrera) {
+        this.listaCarrera = listaCarrera;
     }
 
     public String getErrorMsj() {

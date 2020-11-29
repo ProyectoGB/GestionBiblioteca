@@ -4,6 +4,9 @@
     Author     : DanielHernandezReyes
 --%>
 
+
+<%@page import="mx.com.biblioteca.modelo.beans.Carrera"%>
+<%@page import="mx.com.biblioteca.modelo.Session"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -14,57 +17,76 @@
         <title>Career</title>
     </head>
     <body>
+        <%
+            HttpSession sesion = request.getSession();
+            Session sec = (Session) sesion.getAttribute("user");
+            //Usuario user = sec.getUser();
+        %>
         <header class="content-header">
-            <form class="content-header" action="" method="POST">
+            <form class="content-header" action="/GestionBiblioteca/ControlCarrera" method="POST">
                 <label class="content-header_line" >Identificador:
-                    <input type="text" id="buscar" name="buscar">
+                    <input id="cl" type="hidden" name="clave" value="b"/>
+                    <input type="text" id="buscar" name="idCarrera">
                 </label>  
-                <input class="content-header_input" type="submit" value="Buscar">
-                <input class="content-header_input" type="button" value="Modificar">
+                <input class="content-header_input" id="btnSear" type="submit" value="Buscar">
+                <input class="content-header_input" id="btnChan" type="button" value="Modificar">
             </form>
             <a class="content-header_link" href="../session/home.jsp">Regresar</a>
         </header>
         <section>
             <nav>
-                <form action="" method="POST" >
+                <form action="/GestionBiblioteca/ControlCarrera" method="POST" >
                     <fieldset >
                         <legend>Carrera nueva</legend>
                         <div class="content-center_line">
                             <label for="matricula"> Nombre:</label>
-                            <input class="right" type="text" id="matricula" name="matricula"  > 
+                            <input class="right" type="text" id="matricula" name="idC"  > 
                         </div>
                         <div class="content-center_line">
                             <label for="estado">Estado:</label>
                             <label class="right" for="estado">
-                                <input type="checkbox" id="estado" name="estado" value="estado">
+                                <input type="checkbox" id="estado" name="eTa" checked value="estado">
                                 Activo
                             </label>
                         </div>
                         <div class="content-center_line">
-                            <input class="button" type="submit" value="Agregar">
+                            <input type="hidden" name="clave" value="addC"/>
+                            <input class="button" type="submit" value="Agregar"/>
                         </div>
                     </fieldset> 
                 </form>
                 <div class="content-center_line"></div>
-                <form action="" method="POST" >
+                <form action="/GestionBiblioteca/ControlCarrera" method="POST" >
                     <fieldset>
                         <legend>Modificar carrera</legend>
-                        <div class="content-center_line">
-                            <label for="matricula"> Identificador:</label>
-                            <label for="matricula"> Ide</label>
+                        <%
+                            if(sec.getMensaje() != null && sec.getMensaje().equals("Datos obtenidos")){
+                                Carrera c = sec.getListaCarrera().get(1);
+                        %>
+                        <div class="content-center_line"><label for="iden"> Identificador:</label>
+                            <input id="iden" type="text" readonly name="idenT" value="<%= c.getIdCarrera() %>" /></div>
+                        <div class="content-center_line"><label for="nom"> Nombre:</label>
+                            <input class="right" type="text" id="nom" name="nomT" value="<%= c.getNombre() %>"  ></div>
+                        <div class="content-center_line"><label for="es">Estado:</label>
+                            <% if(c.getEstado().equals("EX")){ %>
+                            <label class="right" for="es"><input type="checkbox" id="estado2" name="std" value="AC">Activo</label>
+                            <% } else { %>
+                            <label class="right" for="es"><input type="checkbox" id="estado2" name="std" checked value="AC">Activo</label>
+                            <% } %>
                         </div>
+                        <%
+                            } else {
+                        %>
+                            <div class="content-center_line"><label for="iden"> Identificador:</label><input id="iden" type="text" readonly name="iden" /></div>
+                            <div class="content-center_line"><label for="nom"> Nombre:</label><input class="right" type="text" id="nom" name="nom"  ></div>
+                            <div class="content-center_line"><label for="es">Estado:</label>
+                                <label class="right" for="es"><input type="checkbox" id="estado2" name="estado" value="AC">Activo</label>
+                            </div>
+                        <%
+                            }
+                        %>
                         <div class="content-center_line">
-                            <label for="matricula"> Nombre:</label>
-                            <input class="right" type="text" id="matricula" name="matricula"  > 
-                        </div>
-                        <div class="content-center_line">
-                            <label for="estado2">Estado:</label>
-                            <label class="right" for="estado2">
-                                <input type="checkbox" id="estado2" name="estado" value="estado">
-                                Activo
-                            </label>
-                        </div>
-                        <div class="content-center_line">
+                            <input type="hidden" name="clave" value="mOdi"/>
                             <input class="button" type="submit" value="Actualizar">
                         </div>
                     </fieldset> 
@@ -81,23 +103,49 @@
                     </thead>
                     <tbody>
                         <%
-                            for (int i = 0; i < 5; i++) {
+                            if(sec.getMensaje() != null && sec.getMensaje().equals("Lista generada")){
+                            for (Carrera u: sec.getListaCarrera()) {
 
-                            %>
+                        %>
 
-                            <tr>
-                                <th>123456789012</th>
-                                <th><%=i %></th>
-                                <th><%=i %></th>
-                            </tr>
-                            <%
-                                }
-                            %>
+                        <tr>
+                            <th onclick="clicF(this)"id="<%=u.getIdCarrera()%>" >123456789012</th>
+                            <th><%=u.getEstado() %></th>
+                            <th><%=u.getNombre() %></th>
+                        </tr>
+                        <%
+                            }}
+                        %>
 
                     </tbody>
                 </table>
             </article>
         </section>
-        <footer class="content-footer"></footer>
+        <footer class="content-footer">
+            <ul class="content">
+                <%
+                    if (sec.getMensaje() != null) {
+                %>
+                <li><a class="content-item_footer" href=""><%= sec.getMensaje() %></a></li>
+                <%
+                        sec.setMensaje(null);
+                    }
+                    sec.setListaCarrera(null);
+                %>
+            </ul>
+        </footer>
+        <script>
+            document.getElementById('btnChan').addEventListener('click', ()=> {
+                let hiden = document.getElementById('cl');
+                hiden.value = 'chan';
+            });
+            document.getElementById('btnSear').addEventListener('click', ()=> {
+                let hiden = document.getElementById('cl');
+                hiden.value = 'sear';
+            });
+            function clicF (e) {
+               document.getElementById('buscar').value = e.id;
+            }
+        </script>
     </body>
 </html>
