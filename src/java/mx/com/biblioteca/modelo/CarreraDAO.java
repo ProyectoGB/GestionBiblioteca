@@ -36,6 +36,7 @@ public class CarreraDAO {
         cn.prepareStatement(sql);
         cn.getEstado().setString(1, nueva.getNombre());
         cn.getEstado().setString(2, nueva.getEstado());
+        cn.getEstado().setInt(3, nueva.getIdCarrera());
         cn.getEstado().executeUpdate();
         cn.getEstado().close();
         cn.getConexion().close();

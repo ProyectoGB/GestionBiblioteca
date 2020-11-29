@@ -101,11 +101,11 @@ public class ControlCarrera extends HttpServlet {
                     sesion.setAttribute("user", sec);
                     response.sendRedirect("career/career.jsp");
                     break;
-                case "mOdi":
+                case "mOdi": //revizar
                     carrOper = new Carrera();
                     carrOper.setIdCarrera(Integer.parseInt(request.getParameter("idenT")));
                     carrOper.setNombre(request.getParameter("nomT"));
-                    carrOper.setEstado((request.getParameter(clave))==null?"EX":"AC" );
+                    carrOper.setEstado((request.getParameter("std"))==null?"EX":"AC" );
                     this.validarData(carrOper);
                     
                     crl = new CarreraDAO();

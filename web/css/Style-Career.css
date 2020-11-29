@@ -98,7 +98,7 @@ body {
 
 nav {
   float: left;
-  width: 25%;
+  width: 35%;
   padding: .5em;
   margin-top: 1em;
 }
@@ -108,7 +108,7 @@ nav {
 article {
   float: left;
   padding: 20px;
-  width: 60%;
+  width: 50%;
   margin-top: 1em;
   min-height: 29.5em;
 }
@@ -124,7 +124,7 @@ article {
 
 .right {
     float: right;
-    width: 9em;
+    width: 15em;
     margin-right: 0em;
     outline-color: #f57716;
 }

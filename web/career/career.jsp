@@ -28,8 +28,8 @@
                     <input id="cl" type="hidden" name="clave" value="b"/>
                     <input type="text" id="buscar" name="idCarrera">
                 </label>  
-                <input class="content-header_input" id="btnSear" type="submit" value="Buscar">
-                <input class="content-header_input" id="btnChan" type="button" value="Modificar">
+                <input class="content-header_input" id="btnSear" type="submit" value="Buscar"/>
+                <input class="content-header_input" id="btnChan" type="submit" value="Modificar"/>
             </form>
             <a class="content-header_link" href="../session/home.jsp">Regresar</a>
         </header>
@@ -61,10 +61,10 @@
                         <legend>Modificar carrera</legend>
                         <%
                             if(sec.getMensaje() != null && sec.getMensaje().equals("Datos obtenidos")){
-                                Carrera c = sec.getListaCarrera().get(1);
+                                Carrera c = sec.getListaCarrera().get(0);
                         %>
                         <div class="content-center_line"><label for="iden"> Identificador:</label>
-                            <input id="iden" type="text" readonly name="idenT" value="<%= c.getIdCarrera() %>" /></div>
+                            <input class="right" id="iden" type="text" readonly name="idenT" value="<%= c.getIdCarrera() %>" /></div>
                         <div class="content-center_line"><label for="nom"> Nombre:</label>
                             <input class="right" type="text" id="nom" name="nomT" value="<%= c.getNombre() %>"  ></div>
                         <div class="content-center_line"><label for="es">Estado:</label>
@@ -77,7 +77,7 @@
                         <%
                             } else {
                         %>
-                            <div class="content-center_line"><label for="iden"> Identificador:</label><input id="iden" type="text" readonly name="iden" /></div>
+                            <div class="content-center_line"><label for="iden"> Identificador:</label><input class="right" id="iden" type="text" readonly name="iden" /></div>
                             <div class="content-center_line"><label for="nom"> Nombre:</label><input class="right" type="text" id="nom" name="nom"  ></div>
                             <div class="content-center_line"><label for="es">Estado:</label>
                                 <label class="right" for="es"><input type="checkbox" id="estado2" name="estado" value="AC">Activo</label>
@@ -96,7 +96,7 @@
                 <table>
                     <thead>
                             <tr>
-                                <th style="width: 6em;">Identificador</th>
+                                <th style="width: 2em;">Identificador</th>
                                 <th style="width: 2em;">Estado</th>
                                 <th style="width: 15em;">Nombre</th>
                             </tr>
@@ -109,7 +109,7 @@
                         %>
 
                         <tr>
-                            <th onclick="clicF(this)"id="<%=u.getIdCarrera()%>" >123456789012</th>
+                            <th onclick="clicF(this)"id="<%=u.getIdCarrera()%>"><%=u.getIdCarrera()%></th>
                             <th><%=u.getEstado() %></th>
                             <th><%=u.getNombre() %></th>
                         </tr>
