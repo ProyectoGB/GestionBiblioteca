@@ -6,11 +6,7 @@
 package mx.com.biblioteca.controlador;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -79,6 +75,9 @@ public class ControlUsuario extends HttpServlet {
                     userOper.setEstado( (request.getParameter("estado")==null)?"IAC":"BLO");
                     userOper.setTipo(request.getParameter("tipo"));
                     
+                    this.validarUser(userOper);
+                    this.validarData(userOper);
+                    
                     crl = new UsuarioDAO();
                     boolean es = crl.nuevoUsuario(userOper);
                     sec.setMensaje((es)?"Usuario agregado":"Usuario no agregado");
@@ -89,6 +88,7 @@ public class ControlUsuario extends HttpServlet {
                 case "chan":
                     userOper.setIdUsuario(request.getParameter("idUsuario"));
                     crl = new UsuarioDAO();
+                    
                     userOper = crl.buscarU(userOper);
                     
                     lu = new ArrayList<>();
@@ -106,12 +106,15 @@ public class ControlUsuario extends HttpServlet {
                     userOper.setEstado( (request.getParameter("estado")==null)?"IAC":"BLO");
                     userOper.setTipo(request.getParameter("tipo"));
                     
+                    this.validarData(userOper);
+                    
                     crl = new UsuarioDAO();
                     crl.modificarUsuario(userOper);
                     Usuario mod = new Usuario("--","--","--","BLO",null,"ENC");
                     lu = new ArrayList<>();
                     lu.add(mod);
                     lu.add(userOper);
+                    
                     sec.setListaUsuario(lu);
                     sec.setMensaje("A");
                     
@@ -127,7 +130,25 @@ public class ControlUsuario extends HttpServlet {
         }
         
     }
-
+    
+    private void validarUser(Usuario user) throws Exception {
+        if(user.getIdUsuario() == null)
+            throw new Exception("No agrego caracteres al usuario.");
+        if(user.getIdUsuario().equals("") )
+            throw new Exception("No hay registro de usuario.");
+        if(user.getIdUsuario().length() > 12)
+            throw new Exception("La longitun del usuario es incorrecta.");
+    }
+    
+    private void validarData(Usuario user) throws Exception {
+        if(user.getNombre() == null || user.getApePaterno()== null )
+            throw new Exception("No agrego caracteres a el nombre y/o apellido.");
+        if(user.getNombre().equals("") || user.getApePaterno().equals("") )
+            throw new Exception("El nombre y/o apellido estan vacios.");
+        if(user.getNombre().length() > 50 && user.getApePaterno().length() > 50)
+            throw new Exception("La longitun del nombre y/o apellido son incorrectos.");
+    }
+    
     /**
      * Returns a short description of the servlet.
      *
