@@ -16,7 +16,7 @@ import mx.com.biblioteca.modelo.beans.Usuario;
 public class UsuarioDAO {
     
     private boolean buscarV(Usuario bus) throws SQLException, Exception{
-        String sql = "select idUsuario, apePaterno, nombre, estado, tipo from usuario where idUsuario like ?;";
+        String sql = "select idUsuario tipo from usuario where idUsuario like ?;";
         Conexion cn = new Conexion();
         cn.conexionUsuarioJe();
         cn.conectar();

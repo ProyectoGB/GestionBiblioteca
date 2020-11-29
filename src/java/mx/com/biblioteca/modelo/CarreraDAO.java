@@ -63,6 +63,25 @@ public class CarreraDAO {
         return list;
     }
     
+    public ArrayList<Carrera> listarCarrera() throws SQLException, Exception{
+        String sql = "SELECT idCarrera, nombre FROM carrera WHERE estado != 'EX';";
+        Conexion cn = new Conexion();
+        cn.conexionUsuarioEn();
+        cn.conectar();
+        cn.prepareStatement(sql);
+        cn.setResultado(cn.getEstado().executeQuery());
+        ArrayList<Carrera> list = new ArrayList<>();
+        while(cn.getResultado().next()){
+            Carrera c = new Carrera();
+            c.setIdCarrera(cn.getResultado().getInt("idCarrera"));
+            c.setNombre(cn.getResultado().getString("nombre"));
+            list.add(c);
+        }
+        cn.getEstado().close();
+        cn.getConexion().close();
+        return list;
+    }
+    
     public Carrera buscarNC(Carrera bus) throws SQLException, Exception{
         String sql = "SELECT nombre, estado FROM carrera WHERE idCarrera = ?";
         Conexion cn = new Conexion();

@@ -132,7 +132,7 @@
                 <%
                         sec.setMensaje(null);
                     }
-                    sec.setListaCarrera(null);
+                    sec.setListaServicio(null);
                 %>
             </ul>
         </footer>

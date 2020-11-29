@@ -25,7 +25,10 @@
             <nav>
                 <ul class="content">
                     
-                    <li><a class="content-item" href="../student/addStudent.jsp">Alumnos</a></li>
+                        <form class="content-header" action="/GestionBiblioteca/TempControlCarrera" method="POST">
+                            <input class="content-line_input" type="submit" value="Alumnos"/>
+                            
+                        </form>
                     <%
                         if(user.getTipo().equals("ADM")) {
                     %>
