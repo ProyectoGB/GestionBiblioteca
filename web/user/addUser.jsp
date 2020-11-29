@@ -24,12 +24,12 @@
         <header class="content-header">
             <form class="content-header" action="/GestionBiblioteca/ControlUsuario" method="POST">
                 <label class="content-header_line" >Identificador:
-                    <input type="hidden" name="clave" value="b"/>
+                    <input id="cl" type="hidden" name="clave" value="b"/>
                     <input type="text" id="buscar" name="idUsuario">
                 </label>  
-                <input class="content-header_input" type="submit" value="Buscar">
+                <input id="btnSear" class="content-header_input" type="submit" value="Buscar">
+                <input id="btnChan" class="content-header_input" type="submit" value="Modificar">
             </form>
-            <a class="content-header_link" href="changeUser.jsp">Modificar</a>
             <a class="content-header_link" href="../session/home.jsp">Regresar</a>
         </header>
         <section>
@@ -81,14 +81,15 @@
                             <th style="width: 4em;">Tipo</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="bod">
                         <%
                             if(sec.getListaUsuario()!= null){
                             ArrayList<Usuario> lis = sec.getListaUsuario();
+                            int i = 0;
                             for (Usuario u : lis) {
                             %>
                             <tr>
-                                <th><%=u.getIdUsuario() %></th>
+                                <th onclick="clicF(this)"id="<%=u.getIdUsuario()%>" ><%=u.getIdUsuario() %></th>
                                 <th><%=u.getNombre() %></th>
                                 <th><%=u.getApePaterno() %></th>
                                 <th><%=u.getEstado() %></th>
@@ -114,5 +115,19 @@
                     %>
                 </ul>
         </footer>
+        <script>
+            document.getElementById('btnChan').addEventListener('click', ()=> {
+                let hiden = document.getElementById('cl');
+                hiden.value = 'c';
+            });
+            document.getElementById('btnSear').addEventListener('click', ()=> {
+                let hiden = document.getElementById('cl');
+                hiden.value = 'b';
+            });
+            function clicF (e) {
+               document.getElementById('buscar').value = e.id;
+            }
+
+        </script>
     </body>
 </html>

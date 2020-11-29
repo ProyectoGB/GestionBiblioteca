@@ -17,6 +17,7 @@ public class Session {
     private Usuario user;
     private String mensaje;
     private ArrayList<Usuario> listaUsuario;
+    private String option;
 
     public Session() {
     }

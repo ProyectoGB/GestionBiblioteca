@@ -76,15 +76,31 @@ public class ControlUsuario extends HttpServlet {
                 u.setEstado( (request.getParameter("estado")==null)?"IAC":"BLO");
                 u.setTipo(request.getParameter("tipo"));
                 UsuarioDAO crl = new UsuarioDAO();
-                crl.nuevoUsuario(u);
-                sec.setListaUsuario(new ArrayList<>());
-                sec.setMensaje("Usuario agregado");
+                boolean es = crl.nuevoUsuario(u);
+                if(es){
+                    
+                    sec.setMensaje("Usuario agregado");
+                }else {
+                    sec.setMensaje("Usuario no agregado");
+                }
+                sesion.setAttribute("user", sec);
+                response.sendRedirect("user/addUser.jsp");
             }
-            
-        } catch (SQLException ex) {
-
+            if(clave.equals("c")) {
+                u.setIdUsuario(request.getParameter("idUsuario"));
+                UsuarioDAO crl = new UsuarioDAO();
+                u = crl.buscarU(user, u);
+                ArrayList<Usuario> lu = new ArrayList<>();
+                lu.add(u);
+                sec.setListaUsuario(lu);
+                sec.setMensaje("Datos obtenidos");
+                sesion.setAttribute("user", sec);
+                response.sendRedirect("user/changeUser.jsp");
+            }
         } catch (Exception ex) {
-
+            request.setAttribute("msj", ex.getMessage());
+            request.setAttribute("ex", ex);
+            request.getRequestDispatcher("error/error.jsp");
         }
         
     }
