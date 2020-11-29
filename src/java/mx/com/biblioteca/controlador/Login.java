@@ -47,45 +47,63 @@ public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String clave = request.getParameter("clave");
+        HttpSession sesion = request.getSession();
+        Session sec = new Session();
         try {
-            if(clave.equals("log")) {
-                Usuario user = new Usuario();
-                user.setIdUsuario(request.getParameter("idUsuario"));
-                user.setContra(request.getParameter("contra"));
-                UsuarioDAO crl = new UsuarioDAO();
-                user = crl.iniciarSesion(user);
-                
-                if(user != null){
-                    HttpSession sesion = request.getSession();
-                    Session sec = new Session(user, null);
-                    sesion.setAttribute("user", sec);
-                    response.sendRedirect("session/home.jsp");
-                }else{
+            UsuarioDAO crl;
+            Usuario user;
+            switch(clave){
+                case "log":
+                    user = new Usuario();
+                    user.setIdUsuario(request.getParameter("idUsuario"));
+                    user.setContra(request.getParameter("contra"));
+                    validarData(user);
+                    crl = new UsuarioDAO();
+                    user = crl.iniciarSesion(user);
+                    if(user != null){
+                        sec.setUser(user);
+                        sesion.setAttribute("user", sec);
+                        response.sendRedirect("session/home.jsp");
+                    } else
+                        throw new Exception("Las credenciales no se encontrarón o la cuenta esta activa en otro equipo.");
+                    break;
+                case "exit":
+                    this.cerrarSesion(request);
                     response.sendRedirect("login.jsp");
-                }
-                
-            } if(clave.equals("exit")) {
-                HttpSession sesion = request.getSession();
-                Session sec = (Session)sesion.getAttribute("user");
-                
-                UsuarioDAO crl = new UsuarioDAO();
-                crl.cerrarSesion(sec.getUser());
-                sesion.invalidate();
-                
-                response.sendRedirect("login.jsp");
+                    break;
             }
-            
         } catch (SQLException ex) {
-            request.setAttribute("msj", ex.getMessage());
-            request.setAttribute("ex", ex);
+            sesion.setAttribute("user", sec);
+            sec.setErrorMsj("Error en la conexión con el SGBD:");
+            sec.setErrorExe(ex.toString());
+            sec.setErrorUrl("/GestionBiblioteca/login.jsp");
             response.sendRedirect("error/error.jsp");
         } catch (Exception ex) {
-            request.setAttribute("msj", ex.getMessage());
-            request.setAttribute("ex", ex);
+            sesion.setAttribute("user", sec);
+            sec.setErrorMsj(ex.getMessage());
+            sec.setErrorExe(ex.toString());
+            sec.setErrorUrl("/GestionBiblioteca/login.jsp");
             response.sendRedirect("error/error.jsp");
         }
     }
-
+    
+    private void validarData(Usuario user) throws Exception {
+        if(user.getIdUsuario() == null || user.getContra() == null )
+            throw new Exception("No agrego caracteres a el usuario y/o contraseña.");
+        if(user.getIdUsuario().equals("") || user.getContra().equals("") )
+            throw new Exception("No hay registro de usuario y/o contraseña.");
+        if(user.getIdUsuario().length() > 12 && user.getContra().length() > 20)
+            throw new Exception("La longitun del usuario y/o contraseña son incorrectas.");
+    }
+    
+    private void cerrarSesion(HttpServletRequest request) throws Exception{
+        HttpSession sesion = request.getSession();
+        Session sec = (Session) sesion.getAttribute("user");
+        UsuarioDAO crl = new UsuarioDAO();
+        crl.cerrarSesion(sec.getUser());
+        sesion.invalidate();
+    }
+    
     /**
      * Returns a short description of the servlet.
      *

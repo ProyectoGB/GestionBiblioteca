@@ -34,22 +34,24 @@
                     <input class="content-field_input_dos" type="text" name="apePa" value="<%=user.getApePaterno() %>"/>
                 </div>
                 <div class="content-field_line content-margin">
+                    <input type="hidden" name="clave" value="dataP"/>
                     <input class="content-field_input_submit" type="submit" value="Actualizar"/>
                 </div>
             </fieldset>
         </form>
-        <form class="content content-margin">
+        <form class="content content-margin" action="/GestionBiblioteca/ControlSession" method="POST">
             <fieldset class="content-field content-margin">
                 <legend>Contraseña</legend>
                 <div class="content-field_line content-margin">
                     <label>Contraseña actual:</label>
-                    <input class="content-field_uno" type="password"/>
+                    <input class="content-field_uno" type="password" name="pasA" />
                 </div>
                 <div class="content-field_line content-margin">
                     <label>Nueva contraseña:</label>
-                    <input class="content-field_uno" type="password"/>
+                    <input class="content-field_uno" type="password" name="pasN"/>
                 </div>
                 <div class="content-field_line content-margin">
+                    <input type="hidden" name="clave" value="pS"/>
                     <input class="content-field_input_submit" type="submit" value="Cambiar"/>
                 </div>
             </fieldset>

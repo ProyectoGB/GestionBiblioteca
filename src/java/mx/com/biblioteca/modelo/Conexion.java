@@ -61,13 +61,17 @@ public class Conexion {
         this.user = "alumno";
         this.pass = "Alum5no";
     }
-    public void conexionAdmin(){
-        this.user = "DBA-Biblioteca";
-        this.pass = "Its0eh@1";
+    //public void conexionAdmin(){
+    //    this.user = "DBA-Biblioteca";
+    //    this.pass = "Its0eh@1";
+    //}
+    public void conexionUsuarioEn(){
+        this.user = "encargado";
+        this.pass = "Itso@eh2020";
     }
-    public void conexionUsuarios(Usuario user){
-        this.user = user.getIdUsuario();
-        this.pass = user.getContra();
+    public void conexionUsuarioJe(){
+        this.user = "Admin";
+        this.pass = "Itso@eh2020";
     }
 /**
  * Este Metodo obtiene la conexion a la BD.

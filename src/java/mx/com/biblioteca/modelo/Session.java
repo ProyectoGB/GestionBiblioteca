@@ -17,7 +17,9 @@ public class Session {
     private Usuario user;
     private String mensaje;
     private ArrayList<Usuario> listaUsuario;
-    private String option;
+    private String errorMsj;
+    private String errorExe;
+    private String errorUrl;
 
     public Session() {
     }
@@ -50,7 +52,29 @@ public class Session {
     public void setListaUsuario(ArrayList<Usuario> listaUsuario) {
         this.listaUsuario = listaUsuario;
     }
-    
-    
+
+    public String getErrorMsj() {
+        return errorMsj;
+    }
+
+    public void setErrorMsj(String errorMsj) {
+        this.errorMsj = errorMsj;
+    }
+
+    public String getErrorExe() {
+        return errorExe;
+    }
+
+    public void setErrorExe(String errorExe) {
+        this.errorExe = errorExe;
+    }
+
+    public String getErrorUrl() {
+        return errorUrl;
+    }
+
+    public void setErrorUrl(String errorUrl) {
+        this.errorUrl = errorUrl;
+    }
     
 }

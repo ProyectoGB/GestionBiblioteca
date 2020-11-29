@@ -6,15 +6,9 @@
 package mx.com.biblioteca.controlador;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -53,35 +47,90 @@ public class ControlSession extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String clave = request.getParameter("clave");
+        HttpSession sesion = request.getSession();
+        Session sec = (Session) sesion.getAttribute("user");
+        Usuario user = sec.getUser();
         try {
-            HttpSession sesion = request.getSession();
-            Session sec = (Session)sesion.getAttribute("user");
-            Usuario user = sec.getUser();
-            
-            UsuarioDAO crl = new UsuarioDAO();
-            user.setNombre(request.getParameter("nombre"));
-            user.setApePaterno(request.getParameter("apePa"));
-            int r = crl.cambiarDatosPersonales(user);
-            if(r == 1){
-                String tex = "Datos personales actualizados";
-                sec.setMensaje(tex);
-                sesion.setAttribute("user", sec);
-                response.sendRedirect("session/home.jsp");
-                
-            } else {
-                request.setAttribute("ex", "Los cambios no se ejecutarón");
-                response.sendRedirect("error/error.jsp");
+            UsuarioDAO crl;
+            switch(clave){
+                case "dataP":
+                    Usuario userOper = new Usuario();
+                    userOper.setNombre(request.getParameter("nombre"));
+                    userOper.setApePaterno(request.getParameter("apePa"));
+                    validarData(userOper);
+                    user.setNombre(userOper.getNombre());
+                    user.setApePaterno(userOper.getApePaterno());
+                    
+                    crl = new UsuarioDAO();
+                    int r = crl.cambiarDatosPersonales(user);
+                    if(r == 1)
+                        sec.setMensaje("Datos personales actualizados");
+                    else
+                        sec.setMensaje("Los cambios no se realizarón");
+                    sesion.setAttribute("user", sec);
+                    response.sendRedirect("session/home.jsp");
+                    break;
+                case "pS":
+                    Usuario userAc = new Usuario();
+                    Usuario userNu = new Usuario();
+                    userAc.setContra(request.getParameter("pasA"));
+                    userNu.setContra(request.getParameter("pasN"));
+                    
+                    this.comparar(userAc, user);
+                    this.validarPass(userNu);
+                    user.setContra(userNu.getContra());
+                    
+                    crl = new UsuarioDAO();
+                    crl.cambiarPassword(user);
+                    sec.setMensaje("La contraseña fue actualizada.");
+                    sesion.setAttribute("user", sec);
+                    response.sendRedirect("session/home.jsp");
+                    break;
             }
+            
         } catch (SQLException ex) {
-            request.setAttribute("msj", ex.getMessage());
-            request.setAttribute("ex", ex);
-            request.getRequestDispatcher("error/error.jsp");
+            sesion.setAttribute("user", sec);
+            sec.setErrorMsj("Error en la conexión con el SGBD:");
+            sec.setErrorExe(ex.toString());
+            sec.setErrorUrl("/GestionBiblioteca/session/session.jsp");
+            response.sendRedirect("error/error.jsp");
         } catch (Exception ex) {
-            request.setAttribute("msj", ex.getMessage());
-            request.setAttribute("ex", ex);
-            request.getRequestDispatcher("error/error.jsp");
+            sesion.setAttribute("user", sec);
+            sec.setErrorMsj(ex.getMessage());
+            sec.setErrorExe(ex.toString());
+            sec.setErrorUrl("/GestionBiblioteca/session/session.jsp");
+            response.sendRedirect("error/error.jsp");
         }
         
+    }
+    
+    private void comparar(Usuario userA, Usuario userB) throws Exception{
+        if(userA.getContra().length() != userB.getContra().length())
+            throw new Exception("La contraseña proporcionada no coincide con la actual.");
+        for (int i = 0; i < userA.getContra().length(); i++) {
+            if(userA.getContra().charAt(i)!=userB.getContra().charAt(i))
+                throw new Exception("La contraseña proporcionada no coincide con la actual.");
+        }
+    }
+    
+    private void validarData(Usuario user) throws Exception {
+        if(user.getNombre() == null || user.getApePaterno()== null )
+            throw new Exception("No agrego caracteres a el nombre y/o apellido.");
+        if(user.getNombre().equals("") || user.getApePaterno().equals("") )
+            throw new Exception("El nombre y/o apellido estan vacios.");
+        if(user.getNombre().length() > 50 && user.getApePaterno().length() > 50)
+            throw new Exception("La longitun del nombre y/o apellido son incorrectos.");
+    }
+    private void validarPass(Usuario user) throws Exception {
+        if(user.getContra() == null )
+            throw new Exception("No agrego caracteres a la contraseña.");
+        if(user.getContra().equals("") )
+            throw new Exception("La contraseña esta vacia.");
+        if(user.getContra().length() < 8)
+            throw new Exception("La longitun de la contraseña es menor de 8 caracteres.");
+        if(user.getContra().length() > 20)
+            throw new Exception("La longitun del la contraseña excede los caracteres aceptados.");
     }
 
     /**

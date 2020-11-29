@@ -56,47 +56,70 @@ public class ControlUsuario extends HttpServlet {
         try {
             HttpSession sesion = request.getSession();
             Session sec = (Session)sesion.getAttribute("user");
-            Usuario user = sec.getUser();
-            Usuario u = new Usuario();
-            if(clave.equals("b")){
-                u.setIdUsuario(request.getParameter("idUsuario"));
-                UsuarioDAO crl = new UsuarioDAO();
-                ArrayList<Usuario> list = crl.buscar(user, u);
-                sec.setListaUsuario(list);
-                sec.setMensaje("Lista generada");
+            UsuarioDAO crl;
+            ArrayList<Usuario> lu;
+            Usuario userOper = new Usuario();
+            switch(clave){
+                case "sear":
+                    userOper.setIdUsuario(request.getParameter("idUsuario"));
+                    crl = new UsuarioDAO();
 
-                sesion.setAttribute("user", sec);
-                response.sendRedirect("user/addUser.jsp");
-            } 
-            if(clave.equals("a")) {
-                u.setIdUsuario(request.getParameter("username"));
-                u.setApePaterno(request.getParameter("apePaterno"));
-                u.setNombre(request.getParameter("nombre"));
-                u.setContra("itsoeh2020");
-                u.setEstado( (request.getParameter("estado")==null)?"IAC":"BLO");
-                u.setTipo(request.getParameter("tipo"));
-                UsuarioDAO crl = new UsuarioDAO();
-                boolean es = crl.nuevoUsuario(u);
-                if(es){
+                    ArrayList<Usuario> list = crl.buscar(userOper);
+                    sec.setListaUsuario(list);
+                    sec.setMensaje("Lista generada");
+
+                    sesion.setAttribute("user", sec);
+                    response.sendRedirect("user/addUser.jsp");
+                    break;
+                case "agre":
+                    userOper.setIdUsuario(request.getParameter("username"));
+                    userOper.setApePaterno(request.getParameter("apePaterno"));
+                    userOper.setNombre(request.getParameter("nombre"));
+                    userOper.setContra("itsoeh2020");
+                    userOper.setEstado( (request.getParameter("estado")==null)?"IAC":"BLO");
+                    userOper.setTipo(request.getParameter("tipo"));
                     
-                    sec.setMensaje("Usuario agregado");
-                }else {
-                    sec.setMensaje("Usuario no agregado");
-                }
-                sesion.setAttribute("user", sec);
-                response.sendRedirect("user/addUser.jsp");
+                    crl = new UsuarioDAO();
+                    boolean es = crl.nuevoUsuario(userOper);
+                    sec.setMensaje((es)?"Usuario agregado":"Usuario no agregado");
+                    
+                    sesion.setAttribute("user", sec);
+                    response.sendRedirect("user/addUser.jsp");
+                    break;
+                case "chan":
+                    userOper.setIdUsuario(request.getParameter("idUsuario"));
+                    crl = new UsuarioDAO();
+                    userOper = crl.buscarU(userOper);
+                    
+                    lu = new ArrayList<>();
+                    lu.add(userOper);
+                    
+                    sec.setListaUsuario(lu);
+                    sec.setMensaje("Datos obtenidos");
+                    sesion.setAttribute("user", sec);
+                    response.sendRedirect("user/changeUser.jsp");
+                    break;
+                case "actu":
+                    userOper.setIdUsuario(request.getParameter("username"));
+                    userOper.setApePaterno(request.getParameter("apP"));
+                    userOper.setNombre(request.getParameter("nom"));
+                    userOper.setEstado( (request.getParameter("estado")==null)?"IAC":"BLO");
+                    userOper.setTipo(request.getParameter("tipo"));
+                    
+                    crl = new UsuarioDAO();
+                    crl.modificarUsuario(userOper);
+                    Usuario mod = new Usuario("--","--","--","BLO",null,"ENC");
+                    lu = new ArrayList<>();
+                    lu.add(mod);
+                    lu.add(userOper);
+                    sec.setListaUsuario(lu);
+                    sec.setMensaje("A");
+                    
+                    sesion.setAttribute("user", sec);
+                    response.sendRedirect("user/changeUser.jsp");
+                    break;
             }
-            if(clave.equals("c")) {
-                u.setIdUsuario(request.getParameter("idUsuario"));
-                UsuarioDAO crl = new UsuarioDAO();
-                u = crl.buscarU(user, u);
-                ArrayList<Usuario> lu = new ArrayList<>();
-                lu.add(u);
-                sec.setListaUsuario(lu);
-                sec.setMensaje("Datos obtenidos");
-                sesion.setAttribute("user", sec);
-                response.sendRedirect("user/changeUser.jsp");
-            }
+            
         } catch (Exception ex) {
             request.setAttribute("msj", ex.getMessage());
             request.setAttribute("ex", ex);

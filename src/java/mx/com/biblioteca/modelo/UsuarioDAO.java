@@ -6,7 +6,6 @@
 package mx.com.biblioteca.modelo;
 
 import java.sql.SQLException;
-import java.sql.SQLWarning;
 import java.util.ArrayList;
 import mx.com.biblioteca.modelo.beans.Usuario;
 
@@ -16,10 +15,10 @@ import mx.com.biblioteca.modelo.beans.Usuario;
  */
 public class UsuarioDAO {
     
-    private boolean buscar(Usuario bus) throws SQLException, Exception{
+    private boolean buscarV(Usuario bus) throws SQLException, Exception{
         String sql = "select idUsuario, apePaterno, nombre, estado, tipo from usuario where idUsuario like ?;";
         Conexion cn = new Conexion();
-        cn.conexionAdmin();
+        cn.conexionUsuarioJe();
         cn.conectar();
         cn.prepareStatement(sql);
         cn.getEstado().setString(1, bus.getIdUsuario());
@@ -41,47 +40,19 @@ public class UsuarioDAO {
     
     public boolean nuevoUsuario(Usuario user) throws SQLException, Exception{
         String sql_0 = "insert into usuario values (?, ?, ?, ?, ?, ?);";
-        String sql_1 = "CREATE USER ?@'%' IDENTIFIED BY ?";
-        String sql_2 = "GRANT ENCARGADO TO ?@'%';";
-        String sql_3 = "GRANT JEFE TO ?@'%';";
-        String sql_4 = "FLUSH PRIVILEGES";
-        boolean estado = buscar(user);
+        boolean estado = buscarV(user);
         if(!estado){
             Conexion cn = new Conexion();
-        cn.conexionAdmin();
-        cn.conectar();
-        cn.getConexion().setAutoCommit(false);
-        cn.prepareStatement(sql_0);
-        cn.getEstado().setString(1, user.getIdUsuario());
-        cn.getEstado().setString(2, user.getApePaterno());
-        cn.getEstado().setString(3, user.getNombre());
-        cn.getEstado().setString(4, user.getEstado());
-        cn.getEstado().setString(5, user.getContra());
-        cn.getEstado().setString(6, user.getTipo());
-        cn.getEstado().executeUpdate();
-            cn.prepareStatement(sql_1);
+            cn.conexionUsuarioJe();
+            cn.conectar();
+            cn.prepareStatement(sql_0);
             cn.getEstado().setString(1, user.getIdUsuario());
-            cn.getEstado().setString(2, user.getContra());
+            cn.getEstado().setString(2, user.getApePaterno());
+            cn.getEstado().setString(3, user.getNombre());
+            cn.getEstado().setString(4, user.getEstado());
+            cn.getEstado().setString(5, user.getContra());
+            cn.getEstado().setString(6, user.getTipo());
             cn.getEstado().executeUpdate();
-            cn.getConexion().setAutoCommit(false);
-            if(user.getTipo().equals("ADM")){
-                cn.prepareStatement(sql_2);
-                cn.getEstado().setString(1, user.getIdUsuario());
-                cn.getEstado().executeUpdate();
-                cn.getConexion().setAutoCommit(false);
-                cn.prepareStatement(sql_3);
-                cn.getEstado().setString(1, user.getIdUsuario());
-                cn.getEstado().executeUpdate();
-                cn.getConexion().setAutoCommit(false);
-            } else {
-                cn.prepareStatement(sql_2);
-                cn.getEstado().setString(1, user.getIdUsuario());
-                cn.getConexion().setAutoCommit(false);
-            }
-            cn.prepareStatement(sql_4);
-            cn.getEstado().executeUpdate();
-            cn.getConexion().setAutoCommit(false);
-        
             cn.getEstado().close();
             cn.getConexion().close();
             return true;
@@ -90,10 +61,34 @@ public class UsuarioDAO {
         
     }
     
-    public ArrayList<Usuario> buscar(Usuario user, Usuario bus) throws SQLException, Exception{
+    public void modificarUsuario(Usuario user) throws SQLException, Exception{
+        String sql_0 = "UPDATE usuario SET apePaterno = ?, nombre = ?, estado = ?, tipo = ? WHERE (idUsuario = ?);";
+        String sql_2 = "select contra from usuario where idUsuario = ?";
+        Conexion cn = new Conexion();
+        cn.conexionUsuarioJe();
+        cn.conectar();
+        cn.prepareStatement(sql_2);
+        cn.getEstado().setString(1, user.getIdUsuario());
+        cn.setResultado(cn.getEstado().executeQuery());
+        while(cn.getResultado().next()){
+            user.setContra(cn.getResultado().getString("contra"));
+        }
+        cn.prepareStatement(sql_0);
+        cn.getEstado().setString(1, user.getApePaterno());
+        cn.getEstado().setString(2, user.getNombre());
+        cn.getEstado().setString(3, user.getEstado());
+        cn.getEstado().setString(4, user.getTipo());
+        cn.getEstado().setString(5, user.getIdUsuario());
+        cn.getEstado().executeUpdate();
+        cn.getEstado().close();
+        cn.getConexion().close();
+        
+    }
+    
+    public ArrayList<Usuario> buscar(Usuario bus) throws SQLException, Exception{
         String sql = "select idUsuario, apePaterno, nombre, estado, tipo from usuario where idUsuario like ?;";
         Conexion cn = new Conexion();
-        cn.conexionUsuarios(user);
+        cn.conexionUsuarioJe();
         cn.conectar();
         cn.prepareStatement(sql);
         cn.getEstado().setString(1, bus.getIdUsuario());
@@ -111,6 +106,7 @@ public class UsuarioDAO {
         cn.getEstado().close();
         cn.getConexion().close();
         return list;
+        
     }
     
     public Usuario iniciarSesion(Usuario user) throws SQLException, Exception{
@@ -147,7 +143,7 @@ public class UsuarioDAO {
     public void cerrarSesion(Usuario user) throws SQLException, Exception{
         String sql = "CALL proce_cerrar_secion(?)";
         Conexion cn = new Conexion();
-        cn.conexionUsuarios(user);
+        cn.conexionUsuarioEn();
         cn.conectar();
         cn.prepareStatement(sql);
         cn.getEstado().setString(1, user.getIdUsuario());
@@ -159,7 +155,7 @@ public class UsuarioDAO {
     public int cambiarDatosPersonales(Usuario user) throws Exception{
         String sql = "UPDATE usuario SET nombre = ?, apePaterno = ? WHERE (idUsuario = ?)";
         Conexion cn = new Conexion();
-        cn.conexionUsuarios(user);
+        cn.conexionUsuarioEn();
         cn.conectar();
         cn.prepareStatement(sql);
         cn.getEstado().setString(1, user.getNombre());
@@ -174,13 +170,10 @@ public class UsuarioDAO {
     public void cambiarPassword(Usuario user) throws SQLException, Exception{
         String sql_1 = "update usuario set estado = 'BLO' where (idUsuario = ?)";
         String sql_2 = "update usuario set contra = ? where idUsuario = ?";
-        String sql_3 = "ALTER USER ?@'%' IDENTIFIED BY ?";
-        String sql_4 = "FLUSH PRIVILEGES";
-        String sql_5 = "update usuario set estado = 'IAC' where (idUsuario = ?);";
+        String sql_3 = "update usuario set estado = 'IAC' where (idUsuario = ?);";
         Conexion cn = new Conexion();
-        cn.conexionAdmin();
+        cn.conexionUsuarioEn();
         cn.conectar();
-        cn.getConexion().setAutoCommit(false);
         cn.prepareStatement(sql_1);
         cn.getEstado().setString(1, user.getIdUsuario());
         cn.getEstado().executeUpdate();
@@ -190,27 +183,15 @@ public class UsuarioDAO {
         cn.getEstado().executeUpdate();
         cn.prepareStatement(sql_3);
         cn.getEstado().setString(1, user.getIdUsuario());
-        cn.getEstado().setString(2, user.getContra());
         cn.getEstado().executeUpdate();
-        cn.prepareStatement(sql_4);
-        cn.getEstado().executeUpdate();
-        cn.prepareStatement(sql_5);
-        cn.getEstado().setString(1, user.getIdUsuario());
-        cn.getEstado().executeUpdate();
-        SQLWarning warnings = cn.getEstado().getWarnings();
-        if(warnings != null){
-            cn.getConexion().commit();
-        }else{
-            cn.getConexion().rollback();
-        }
         cn.getEstado().close();
         cn.getConexion().close();
     }
     
-    public Usuario buscarU(Usuario user, Usuario bus) throws SQLException, Exception{
+    public Usuario buscarU(Usuario bus) throws SQLException, Exception{
         String sql = "select apePaterno, nombre, estado, tipo from usuario where idUsuario = ?;";
         Conexion cn = new Conexion();
-        cn.conexionUsuarios(user);
+        cn.conexionUsuarioJe();
         cn.conectar();
         cn.prepareStatement(sql);
         cn.getEstado().setString(1, bus.getIdUsuario());

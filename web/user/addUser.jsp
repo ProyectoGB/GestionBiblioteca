@@ -64,7 +64,7 @@
                     </label>
                 </div>
                 <div class="content-item">
-                    <input type="hidden" name="clave" value="a"/>
+                    <input type="hidden" name="clave" value="agre"/>
                     <input class="button" type="submit" value="Agregar">
                 </div>
             </fieldset>
@@ -113,16 +113,16 @@
                         sec.setMensaje(null);
                         }
                     %>
-                </ul>
+            </ul>
         </footer>
         <script>
             document.getElementById('btnChan').addEventListener('click', ()=> {
                 let hiden = document.getElementById('cl');
-                hiden.value = 'c';
+                hiden.value = 'chan';
             });
             document.getElementById('btnSear').addEventListener('click', ()=> {
                 let hiden = document.getElementById('cl');
-                hiden.value = 'b';
+                hiden.value = 'sear';
             });
             function clicF (e) {
                document.getElementById('buscar').value = e.id;

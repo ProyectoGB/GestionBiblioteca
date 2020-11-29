@@ -26,20 +26,20 @@
         </header>
         <section>
             <nav>
-                <form>
+                <form action="/GestionBiblioteca/ControlUsuario" method="POST">
                 <fieldset >
                     <legend>Modificar Usuario</legend>
                     <div class="content-center_line">
                         <label>Usuario:</label>
-                        <label class="right"><%= lis.getIdUsuario() %></label> 
+                        <input class="right" type="text" readonly name="username" value="<%= lis.getIdUsuario() %>" /> 
                     </div>
                     <div class="content-center_line">
-                        <label for="apP">Nombre:</label>
-                        <input class="right" type="text" id="apP" name="ap" value="<%= lis.getNombre() %>"  /> 
+                        <label for="nom">Nombre:</label>
+                        <input class="right" type="text" id="apP" name="nom" value="<%= lis.getNombre() %>"  /> 
                     </div>
                     <div class="content-center_line">
-                        <label for="apM">Apellido paterno:</label>
-                        <input class="right" type="text" id="apM" name="am" value="<%= lis.getApePaterno() %>" > 
+                        <label for="apP">Apellido paterno:</label>
+                        <input class="right" type="text" id="apM" name="apP" value="<%= lis.getApePaterno() %>" > 
                     </div>
                     <div class="content-center_line">
                         <label for="ti">Tipo de usuario:</label>
@@ -81,7 +81,8 @@
                         %>
                     </div>
                     <div class="content-center_line">
-                        <input class="button" type="submit" value="Actualizar">
+                        <input type="hidden" name="clave" value="actu"/>
+                        <input class="button" type="submit" value="Actualizar"/>
                     </div>
                 </fieldset> 
                 </form>
@@ -89,32 +90,32 @@
             <article> 
                 <fieldset >
                     <legend>Actualizado</legend>
-                    <div class="content-center_line">
-                        <label> Usuario:</label>
-                        <label class="right">dasdas das</label> 
-                    </div>
-                    <div class="content-center_line">
-                        <label>Nombre:</label>
-                        <label class="right">dasdas das</label> 
-                    </div>
-                    <div class="content-center_line">
-                        <label> Apellido paterno:</label>
-                        <label class="right">dasdas das</label> 
-                    </div>
-                    <div class="content-center_line">
-                        <label>Tipo de usuario:</label>
-                        <label class="right">dasdas das dasdassda asdasd dasds</label>
-                    </div>
-                    
-                    <div class="content-center_line">
-                        <label>Estado:</label>
-                        <label class="right">asd</label>
-                    </div>
-
-                </fieldset>
-                
+                    <%
+                        if(sec.getListaUsuario().size() != 2){ 
+                    %>
+                    <div class="content-center_line"><label>Usuario:</label><label class="right"></label></div>
+                    <div class="content-center_line"><label>Nombre:</label><label class="right"></label></div>
+                    <div class="content-center_line"><label>Apellido paterno:</label><label class="right"></label></div>
+                    <div class="content-center_line"><label>Tipo de usuario:</label><label class="right"></label></div>
+                    <div class="content-center_line"><label>Estado:</label><label class="right">asd</label></div>
+                    <%
+                        } else {
+                            Usuario u = sec.getListaUsuario().get(1);
+                    %>
+                    <div class="content-center_line"><label>Usuario:</label><label class="right"><%= u.getIdUsuario() %></label></div>
+                    <div class="content-center_line"><label>Nombre:</label><label class="right"><%= u.getNombre() %></label></div>
+                    <div class="content-center_line"><label>Apellido paterno:</label><label class="right"><%= u.getApePaterno() %></label></div>
+                    <div class="content-center_line"><label>Tipo de usuario:</label><label class="right"><%= u.getTipo() %></label></div>
+                    <div class="content-center_line"><label>Estado:</label><label class="right">asd</label><%= u.getEstado() %></div>
+                    <%
+                        }
+                        sec.setListaUsuario(null);
+                    %>
+                </fieldset>                
             </article>
         </section>
-        <footer class="content-footer"></footer>
+        <footer class="content-footer">
+
+        </footer>
     </body>
 </html>
