@@ -76,10 +76,28 @@ body {
     width: 100%;    
 }
 
+.content {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    
+    height: 4em;
+    background: #156590;
+    list-style: none;
+    margin: 0;
+}
+
+.content-item_footer {
+    text-decoration: none;
+    display: block;
+    color: #fff;
+    padding: 1.4em 2.5em 1.4em 2.5em;
+    text-align: center;
+}
 
 nav {
   float: left;
-  width: 25%;
+  width: 35%;
   padding: .5em;
   margin-top: 1em;
 }
@@ -89,7 +107,7 @@ nav {
 article {
   float: left;
   padding: 20px;
-  width: 60%;
+  width: 50%;
   margin-top: 1em;
   min-height: 29.5em;
 }
@@ -105,7 +123,7 @@ article {
 
 .right {
     float: right;
-    width: 9em;
+    width: 12em;
     margin-right: 0em;
     outline-color: #f57716;
 }

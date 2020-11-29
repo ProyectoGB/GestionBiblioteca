@@ -63,7 +63,7 @@ public class ControlCarrera extends HttpServlet {
             switch(clave){
                 case "sear":
                     carrOper = new Carrera();
-                    carrOper.setNombre(request.getParameter("idCarrera"));
+                    carrOper.setIdCarrera(Integer.parseInt(request.getParameter("idCarrera")));
                     
                     crl = new CarreraDAO();
                     lis = crl.buscarCarrera(carrOper);
@@ -119,6 +119,12 @@ public class ControlCarrera extends HttpServlet {
         } catch (SQLException ex) {
             sesion.setAttribute("user", sec);
             sec.setErrorMsj("Error en la conexión con el SGBD:");
+            sec.setErrorExe(ex.toString());
+            sec.setErrorUrl("/GestionBiblioteca/session/home.jsp");
+            response.sendRedirect("error/error.jsp");
+        } catch (NumberFormatException ex) {
+            sesion.setAttribute("user", sec);
+            sec.setErrorMsj("El identificador proporcionado no es valido:");
             sec.setErrorExe(ex.toString());
             sec.setErrorUrl("/GestionBiblioteca/session/home.jsp");
             response.sendRedirect("error/error.jsp");

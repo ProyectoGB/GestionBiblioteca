@@ -64,22 +64,20 @@ public class CarreraDAO {
     }
     
     public Carrera buscarNC(Carrera bus) throws SQLException, Exception{
-        String sql = "SELECT idCarrera, nombre, estado FROM carrera WHERE idCarrera = ?";
+        String sql = "SELECT nombre, estado FROM carrera WHERE idCarrera = ?";
         Conexion cn = new Conexion();
         cn.conexionUsuarioEn();
         cn.conectar();
         cn.prepareStatement(sql);
         cn.getEstado().setInt(1, bus.getIdCarrera());
         cn.setResultado(cn.getEstado().executeQuery());
-        Carrera c = new Carrera();
-        while(cn.getResultado().next()){    
-            c.setIdCarrera(cn.getResultado().getInt("idCarrera"));
-            c.setNombre(cn.getResultado().getString("nombre"));
-            c.setEstado(cn.getResultado().getString("estado"));
+        while(cn.getResultado().next()){
+            bus.setNombre(cn.getResultado().getString("nombre"));
+            bus.setEstado(cn.getResultado().getString("estado"));
         }
         cn.getEstado().close();
         cn.getConexion().close();
-        return c;
+        return bus;
     }
     
 }

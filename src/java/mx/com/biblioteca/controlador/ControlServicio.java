@@ -55,13 +55,73 @@ public class ControlServicio extends HttpServlet {
         try {
             ArrayList<Servicio> lis;
             ServicioDAO crl;
-            Servicio carrOper;
+            Servicio serOper;
             switch(clave){
-                
+                case "sear":
+                    serOper = new Servicio();
+                    int id = Integer.parseInt(request.getParameter("idServicio"));
+                    serOper.setIdServicio(id);
+                    
+                    crl = new ServicioDAO();
+                    lis = crl.buscarServicio(serOper);
+                    sec.setListaServicio(lis);
+                    
+                    sec.setMensaje("Lista generada");
+                    sesion.setAttribute("user", sec);
+                    response.sendRedirect("service/service.jsp");
+                    break;
+                case "addS":
+                    serOper = new Servicio();
+                    serOper.setNombre(request.getParameter("idC"));
+                    serOper.setEstado((request.getParameter("eTa")==null?"EX":"AC"));
+                    this.validarData(serOper);
+                    
+                    crl = new ServicioDAO();
+                    crl.nuevoServicio(serOper);
+                    sec.setMensaje("Servicio agregado");
+                    sesion.setAttribute("user", sec);
+                    response.sendRedirect("service/service.jsp");
+                    break;
+                case "chan":
+                    serOper = new Servicio();
+                    int idD = Integer.parseInt( request.getParameter("idServicio"));
+                    serOper.setIdServicio(idD);
+                    crl = new ServicioDAO();
+                    
+                    serOper = crl.buscarNS(serOper);
+                    
+                    lis = new ArrayList<>();
+                    lis.add(serOper);
+                    lis.add( new Servicio());
+                    
+                    sec.setListaServicio(lis);
+                    sec.setMensaje("Datos obtenidos");
+                    sesion.setAttribute("user", sec);
+                    response.sendRedirect("service/service.jsp");
+                    break;
+                case "mOdi":
+                    serOper = new Servicio();
+                    serOper.setIdServicio(Integer.parseInt(request.getParameter("idenT")));
+                    serOper.setNombre(request.getParameter("nomT"));
+                    serOper.setEstado((request.getParameter("std"))==null?"EX":"AC" );
+                    this.validarData(serOper);
+                    
+                    crl = new ServicioDAO();
+                    crl.modificarServicio(serOper);
+                    sec.setMensaje("Cambios registrados");
+                    sesion.setAttribute("user", sec);
+                    response.sendRedirect("service/service.jsp");
+                    break;
             }
         } catch (SQLException ex) {
             sesion.setAttribute("user", sec);
             sec.setErrorMsj("Error en la conexión con el SGBD:");
+            sec.setErrorExe(ex.toString());
+            sec.setErrorUrl("/GestionBiblioteca/session/home.jsp");
+            response.sendRedirect("error/error.jsp");
+        } catch (NumberFormatException ex) {
+            sesion.setAttribute("user", sec);
+            sec.setErrorMsj("El identificador proporcionado no es valido:");
             sec.setErrorExe(ex.toString());
             sec.setErrorUrl("/GestionBiblioteca/session/home.jsp");
             response.sendRedirect("error/error.jsp");
@@ -75,6 +135,15 @@ public class ControlServicio extends HttpServlet {
             
     }
 
+    private void validarData(Servicio ser) throws Exception {
+        if(ser.getNombre() == null)
+            throw new Exception("No agrego caracteres a el nombre.");
+        if(ser.getNombre().equals(""))
+            throw new Exception("El nombre estan vacios.");
+        if(ser.getNombre().length() > 250)
+            throw new Exception("La longitun del nombre es demaciado grande.");
+    }
+    
     /**
      * Returns a short description of the servlet.
      *

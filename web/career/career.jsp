@@ -26,7 +26,7 @@
             <form class="content-header" action="/GestionBiblioteca/ControlCarrera" method="POST">
                 <label class="content-header_line" >Identificador:
                     <input id="cl" type="hidden" name="clave" value="b"/>
-                    <input type="text" id="buscar" name="idCarrera">
+                    <input type="text" id="buscar" name="idServicio">
                 </label>  
                 <input class="content-header_input" id="btnSear" type="submit" value="Buscar"/>
                 <input class="content-header_input" id="btnChan" type="submit" value="Modificar"/>
@@ -69,9 +69,9 @@
                             <input class="right" type="text" id="nom" name="nomT" value="<%= c.getNombre() %>"  ></div>
                         <div class="content-center_line"><label for="es">Estado:</label>
                             <% if(c.getEstado().equals("EX")){ %>
-                            <label class="right" for="es"><input type="checkbox" id="estado2" name="std" value="AC">Activo</label>
+                            <label class="right" for="esTd"><input type="checkbox" id="esTd" name="std" value="AC">Activo</label>
                             <% } else { %>
-                            <label class="right" for="es"><input type="checkbox" id="estado2" name="std" checked value="AC">Activo</label>
+                            <label class="right" for="esTd"><input type="checkbox" id="esTd" name="std" checked value="AC">Activo</label>
                             <% } %>
                         </div>
                         <%
@@ -105,7 +105,6 @@
                         <%
                             if(sec.getMensaje() != null && sec.getMensaje().equals("Lista generada")){
                             for (Carrera u: sec.getListaCarrera()) {
-
                         %>
 
                         <tr>
