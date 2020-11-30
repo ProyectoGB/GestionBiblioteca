@@ -16,11 +16,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import mx.com.biblioteca.modelo.AlumnoDAO;
 import mx.com.biblioteca.modelo.CarreraDAO;
-import mx.com.biblioteca.modelo.ServicioDAO;
 import mx.com.biblioteca.modelo.Session;
 import mx.com.biblioteca.modelo.beans.Alumno;
 import mx.com.biblioteca.modelo.beans.Carrera;
-import mx.com.biblioteca.modelo.beans.Servicio;
 
 /**
  *
@@ -55,11 +53,10 @@ public class ControlAlumno extends HttpServlet {
         HttpSession sesion = request.getSession();
         Session sec = (Session) sesion.getAttribute("user");
         try {
-            CarreraDAO cl;
-            ArrayList<Carrera> ls;
             ArrayList<Alumno> lis;
             AlumnoDAO crl;
             Alumno aluOper;
+            Carrera c;
             switch(clave){
                 case "sear":
                     aluOper = new Alumno();
@@ -68,12 +65,9 @@ public class ControlAlumno extends HttpServlet {
                     crl = new AlumnoDAO();
                     lis = crl.buscarAlumno(aluOper);
                     sec.setListaAlumno(lis);
-                    
                     sec.setMensaje("Lista generada");
                     // ******************
-                    cl = new CarreraDAO();
-                    ls = cl.listarCarrera();
-                    sec.setListaCarrera(ls);
+                    this.cargarCarreras(sec);
                     // ******************
                     sesion.setAttribute("user", sec);
                     response.sendRedirect("student/addStudent.jsp");
@@ -91,9 +85,7 @@ public class ControlAlumno extends HttpServlet {
                     sec.setListaAlumno(lis);
                     sec.setMensaje("Datos obtenidos");
                     // ******************
-                    cl = new CarreraDAO();
-                    ls = cl.listarCarrera();
-                    sec.setListaCarrera(ls);
+                    this.cargarCarreras(sec);
                     // ******************
                     sesion.setAttribute("user", sec);
                     response.sendRedirect("student/changeStudent.jsp");
@@ -107,10 +99,10 @@ public class ControlAlumno extends HttpServlet {
                     aluOper.setNombre2(request.getParameter("nbr2"));
                     aluOper.setNombre3(request.getParameter("nbr3"));
                     aluOper.setNombre4(request.getParameter("nbr4"));
-                    Carrera c = new Carrera();
+                    c = new Carrera();
                     c.setIdCarrera(Integer.parseInt(request.getParameter("carT")));
                     aluOper.setCarrera(c);
-                    aluOper.setEstado((request.getParameter("carT")==null?"EX":"AC"));
+                    aluOper.setEstado((request.getParameter("estado")==null?"EX":"AC"));
                     this.validarPar(aluOper);
                     this.validarNombres(aluOper);
                     
@@ -119,11 +111,34 @@ public class ControlAlumno extends HttpServlet {
                     sec.setMensaje("Alumno agregado");
                     sesion.setAttribute("user", sec);
                     // ******************
-                    cl = new CarreraDAO();
-                    ls = cl.listarCarrera();
-                    sec.setListaCarrera(ls);
+                    this.cargarCarreras(sec);
                     // ******************
                     response.sendRedirect("student/addStudent.jsp");
+                    break;
+                case "modA":
+                    aluOper = new Alumno();
+                    aluOper.setMatricula(request.getParameter("matri"));
+                    aluOper.setApePaterno(request.getParameter("apPP"));
+                    aluOper.setApeMaterno(request.getParameter("apMM"));
+                    aluOper.setNombre(request.getParameter("nb1"));
+                    aluOper.setNombre2(request.getParameter("nb2"));
+                    aluOper.setNombre3(request.getParameter("nb3"));
+                    aluOper.setNombre4(request.getParameter("nb4"));
+                    c = new Carrera();
+                    c.setIdCarrera(Integer.parseInt(request.getParameter("ca")));
+                    aluOper.setCarrera(c);
+                    aluOper.setEstado((request.getParameter("esta")==null?"EX":"AC"));
+                    this.validarPar(aluOper);
+                    this.validarNombres(aluOper);
+                    crl = new AlumnoDAO();
+                    crl.modificarAlumno(aluOper);
+                    
+                    ArrayList<Alumno> oc = new ArrayList<>();
+                    oc.add(aluOper);
+                    sec.setMensaje("Alumno modificado");
+                    sec.setListaAlumno(oc);
+                    sesion.setAttribute("user", sec);
+                    response.sendRedirect("student/changeStudent.jsp");
                     break;
             }
         } catch (SQLException ex) {
@@ -184,6 +199,12 @@ public class ControlAlumno extends HttpServlet {
             throw new Exception("El apellido paterno estan vacio.");
         if(user.getApePaterno().length() > 50)
             throw new Exception("La longitun del apellido paterno son incorrectos.");
+    }
+    
+    private void cargarCarreras(Session sec) throws Exception{
+        CarreraDAO cl = new CarreraDAO();
+        ArrayList<Carrera> ls = cl.listarCarrera();
+        sec.setListaCarrera(ls);
     }
     
     /**

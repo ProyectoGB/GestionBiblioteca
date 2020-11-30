@@ -6,11 +6,8 @@
 package mx.com.biblioteca.controlador;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,7 +17,6 @@ import javax.servlet.http.HttpSession;
 import mx.com.biblioteca.modelo.CarreraDAO;
 import mx.com.biblioteca.modelo.Session;
 import mx.com.biblioteca.modelo.beans.Carrera;
-import mx.com.biblioteca.modelo.beans.Usuario;
 
 /**
  *

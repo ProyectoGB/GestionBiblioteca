@@ -162,7 +162,7 @@ public class AlumnoDAO {
     public void modificarAlumno(Alumno user) throws SQLException, Exception{
         String sql;
         Conexion cn = new Conexion();
-        cn.conexionUsuarioJe();
+        cn.conexionUsuarioJe();//Cambiar #######################################
         cn.conectar();
         switch(user.noNombre()){
             case 1:

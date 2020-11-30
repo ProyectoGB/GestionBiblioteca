@@ -26,7 +26,7 @@
             <form class="content-header" action="/GestionBiblioteca/ControlCarrera" method="POST">
                 <label class="content-header_line" >Identificador:
                     <input id="cl" type="hidden" name="clave" value="b"/>
-                    <input type="text" id="buscar" name="idServicio">
+                    <input type="text" id="buscar" name="idCarrera">
                 </label>  
                 <input class="content-header_input" id="btnSear" type="submit" value="Buscar"/>
                 <input class="content-header_input" id="btnChan" type="submit" value="Modificar"/>
