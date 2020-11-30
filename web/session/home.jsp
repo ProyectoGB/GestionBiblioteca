@@ -47,7 +47,7 @@
                     <%
                         }
                     %>
-                    <li><a class="content-item" href="../error/error.jsp">Error</a></li>
+                    
                 </ul>
             </nav>
         </header>
