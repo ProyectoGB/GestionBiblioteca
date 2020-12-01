@@ -82,7 +82,7 @@ public class VisitaDAO {
     }
     
     public void terminarVisita(Visita v) throws SQLException, Exception{
-        String sql = "UPDATE visita SET horaSalida = ?, estado = 'BLO' WHERE idVisita = ?;";
+        String sql = "UPDATE visita SET horaSalida = ? WHERE idVisita = ?;";
         Conexion cn = new Conexion();
         cn.conexionAlumno();
         cn.conectar();
