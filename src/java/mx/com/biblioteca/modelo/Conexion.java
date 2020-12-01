@@ -49,7 +49,7 @@ public class Conexion {
  */ 
     public void conectar() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
-        conexion=DriverManager.getConnection(direccion, user, pass);   
+        conexion=DriverManager.getConnection(direccion, user, pass); 
     }
     
     public void conexionNormal(){

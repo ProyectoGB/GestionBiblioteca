@@ -72,6 +72,63 @@ public class AlumnoDAO {
         
     }
     
+    public Alumno dataAlumnoVisita(Alumno bus) throws SQLException, Exception{
+        boolean es = this.buscarBloc(bus);
+        if(!es){
+            String sql = "SELECT apePaterno, apeMaterno, nombre1, nombre2, nombre3, nombre4, c.nombre cnombre "
+                + "FROM alumno a join carrera c on(a.idCarrera=c.idCarrera) where a.estado != 'EX' and matricula = ?;";
+            Conexion cn = new Conexion();
+            cn.conexionAlumno();
+            cn.conectar();
+            cn.prepareStatement(sql);
+            cn.getEstado().setString(1, bus.getMatricula());
+            cn.setResultado(cn.getEstado().executeQuery());// retornar un valor null ###
+            boolean x = false;
+            while(cn.getResultado().next()){
+                bus.setApePaterno(cn.getResultado().getString("apePaterno"));
+                bus.setApeMaterno(cn.getResultado().getString("apeMaterno"));
+                bus.setNombre(cn.getResultado().getString("nombre1"));
+                bus.setNombre2(cn.getResultado().getString("nombre2"));
+                bus.setNombre3(cn.getResultado().getString("nombre3"));
+                bus.setNombre4(cn.getResultado().getString("nombre4"));
+                Carrera cr = new Carrera();
+                cr.setNombre(cn.getResultado().getString("cnombre"));
+                bus.setCarrera(cr);
+                x = true;
+            }
+            cn.getEstado().close();
+            cn.getConexion().close();
+            if(x)
+                return bus;
+            else
+                throw new NumberFormatException("El alumno: " + bus.getMatricula() + " no esta registrado.");
+        } else 
+            throw new NumberFormatException("El alumno: " + bus.getMatricula() + "Tiene su cuenta bloqueada.");
+    }
+    
+    private boolean buscarBloc(Alumno bus) throws SQLException, Exception{
+        String sql = "select matricula from alumno where estado = 'EX' and matricula like ?;";
+        Conexion cn = new Conexion();
+        cn.conexionAlumno();
+        cn.conectar();
+        cn.prepareStatement(sql);
+        cn.getEstado().setString(1, bus.getMatricula());
+        cn.setResultado(cn.getEstado().executeQuery());
+        boolean estado = false;
+        while(cn.getResultado().next()){
+            estado = true;
+            break;
+        }
+        if(estado){
+            cn.getEstado().close();
+            cn.getConexion().close();
+            return true;
+        }
+        cn.getEstado().close();
+        cn.getConexion().close();
+        return false;
+    }
+    
     private boolean buscarV(Alumno bus) throws SQLException, Exception{
         String sql = "select matricula from alumno where matricula like ?;";
         Conexion cn = new Conexion();

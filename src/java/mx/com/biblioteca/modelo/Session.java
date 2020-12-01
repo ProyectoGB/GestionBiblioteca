@@ -10,6 +10,7 @@ import mx.com.biblioteca.modelo.beans.Alumno;
 import mx.com.biblioteca.modelo.beans.Carrera;
 import mx.com.biblioteca.modelo.beans.Servicio;
 import mx.com.biblioteca.modelo.beans.Usuario;
+import mx.com.biblioteca.modelo.beans.Visita;
 
 /**
  *
@@ -23,9 +24,11 @@ public class Session {
     private ArrayList<Carrera> listaCarrera;
     private ArrayList<Servicio> listaServicio;
     private ArrayList<Alumno> listaAlumno;
+    private ArrayList<Visita> listaVisita;
     private String errorMsj;
     private String errorExe;
     private String errorUrl;
+    private boolean estadoVisita;
 
     public Session() {
     }
@@ -82,6 +85,14 @@ public class Session {
     public void setListaAlumno(ArrayList<Alumno> listaAlumno) {
         this.listaAlumno = listaAlumno;
     }
+
+    public ArrayList<Visita> getListaVisita() {
+        return listaVisita;
+    }
+
+    public void setListaVisita(ArrayList<Visita> listaVisita) {
+        this.listaVisita = listaVisita;
+    }
     
     public String getErrorMsj() {
         return errorMsj;
@@ -105,6 +116,14 @@ public class Session {
 
     public void setErrorUrl(String errorUrl) {
         this.errorUrl = errorUrl;
+    }
+
+    public boolean isEstadoVisita() {
+        return estadoVisita;
+    }
+
+    public void setEstadoVisita(boolean estadoVisita) {
+        this.estadoVisita = estadoVisita;
     }
     
 }

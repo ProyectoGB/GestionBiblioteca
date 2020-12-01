@@ -63,6 +63,25 @@ public class ServicioDAO {
         return list;
     }
     
+    public ArrayList<Servicio> listarServicio() throws SQLException, Exception{
+        String sql = "SELECT idServicio, nombre FROM servicio WHERE estado != 'EX'";
+        Conexion cn = new Conexion();
+        cn.conexionUsuarioEn();
+        cn.conectar();
+        cn.prepareStatement(sql);
+        cn.setResultado(cn.getEstado().executeQuery());
+        ArrayList<Servicio> list = new ArrayList<>();
+        while(cn.getResultado().next()){
+            Servicio c = new Servicio();
+            c.setIdServicio(cn.getResultado().getInt("idServicio"));
+            c.setNombre(cn.getResultado().getString("nombre"));
+            list.add(c);
+        }
+        cn.getEstado().close();
+        cn.getConexion().close();
+        return list;
+    }
+    
     public Servicio buscarNS(Servicio bus) throws SQLException, Exception{
         String sql = "SELECT nombre, estado FROM servicio WHERE idServicio = ?";
         Conexion cn = new Conexion();

@@ -7,6 +7,7 @@ package mx.com.biblioteca.modelo.beans;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 /**
@@ -19,19 +20,19 @@ public class Visita {
     private Time horaEntrada;
     private Time horaSalida;
     private String estado;
-    private String matricula;
+    private Alumno alumno;
     private ArrayList<Servicio> servicios;
 
     public Visita() {
     }
 
-    public Visita(int idVisita, Date fecha, Time horaEntrada, Time horaSalida, String estado, String matricula) {
+    public Visita(int idVisita, Date fecha, Time horaEntrada, Time horaSalida, String estado, Alumno matricula) {
         this.idVisita = idVisita;
         this.fecha = fecha;
         this.horaEntrada = horaEntrada;
         this.horaSalida = horaSalida;
         this.estado = estado;
-        this.matricula = matricula;
+        this.alumno = matricula;
     }
 
     public int getIdVisita() {
@@ -74,12 +75,12 @@ public class Visita {
         this.estado = estado;
     }
 
-    public String getMatricula() {
-        return matricula;
+    public Alumno getAlumno() {
+        return alumno;
     }
 
-    public void setMatricula(String matricula) {
-        this.matricula = matricula;
+    public void setAlumno(Alumno alumno) {
+        this.alumno = alumno;
     }
 
     public ArrayList<Servicio> getServicios() {
@@ -90,6 +91,18 @@ public class Visita {
         this.servicios = servicios;
     }
 
-    
-    
+    public void dataInicio(){
+        java.util.Date d = new java.util.Date();  
+        //SimpleDateFormat plantilla = new java.text.SimpleDateFormat("dd/MM/yyyy H:mm:ss");
+        //String tiempo = plantilla.format(d);
+        this.fecha = new Date(d.getTime());
+        this.horaEntrada = new Time(d.getTime());
+    }
+    public void dataFin(){
+        java.util.Date d = new java.util.Date();
+        
+        SimpleDateFormat plantilla = new java.text.SimpleDateFormat("dd/MM/yyyy H:mm:ss");
+        String tiempo = plantilla.format(d);
+        this.horaSalida = new Time(d.getTime());
+    }
 }

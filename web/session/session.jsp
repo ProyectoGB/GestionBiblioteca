@@ -3,6 +3,7 @@
     Created on : 19/11/2020, 10:13:48 AM
     Author     : DanielHernandezReyes
 --%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="mx.com.biblioteca.modelo.Session"%>
 <%@page import="mx.com.biblioteca.modelo.beans.Usuario"%>
 <%@page session="true" %>
@@ -25,6 +26,12 @@
         <form class="content content-margin" action="/GestionBiblioteca/ControlSession" method="POST">
             <fieldset class="content-field content-margin">
                 <legend>Datos personales</legend>
+                <%
+                java.util.Date d = new java.util.Date();
+                SimpleDateFormat plantilla = new java.text.SimpleDateFormat("dd/MM/yyyy H:mm:ss");
+                String tiempo = plantilla.format(d);
+            %>
+                <label><%=tiempo + "dasdasd" %></label>
                 <div class="content-field_line content-margin">
                     <label>Nombre:</label>
                     <input class="content-field_input_uno" type="text" name="nombre" value="<%=user.getNombre() %>"/>
@@ -54,10 +61,14 @@
                     <input type="hidden" name="clave" value="pS"/>
                     <input class="content-field_input_submit" type="submit" value="Cambiar"/>
                 </div>
+                
             </fieldset>
+            
+            
         </form>
         <footer class="content-footer">
             <a class="content-footer_link" href="home.jsp">Regresar</a>
+            
         </footer>
     </body>
 </html>
