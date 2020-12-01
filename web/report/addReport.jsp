@@ -4,6 +4,9 @@
     Author     : DanielHernandezReyes
 --%>
 
+<%@page import="mx.com.biblioteca.modelo.beans.Reporte"%>
+<%@page import="mx.com.biblioteca.modelo.beans.Usuario"%>
+<%@page import="mx.com.biblioteca.modelo.Session"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -14,41 +17,42 @@
         <title>Add report</title>
     </head>
     <body>
+        <%
+            HttpSession sesion = request.getSession();
+            Session sec = (Session) sesion.getAttribute("user");
+            Usuario user = sec.getUser();
+        %>
         <header class="content-header">
-            <form class="content-header" action="" method="POST">
+            <form class="content-header" action="/GestionBiblioteca/ControlReporte" method="POST">
                 <label class="content-header_line" >Identificador:
                     <input type="text" id="buscar" name="buscar">
-                </label>  
-                <input class="content-header_input" type="submit" value="Buscar">
+                </label>
+                <input type="hidden" id="cl" name="clave" >
+                <input class="content-header_input" id="btnSear" type="submit" value="Buscar">
+                <input class="content-header_input" id="btnChan" type="submit" value="Mostrar">
             </form>
-            <a class="content-header_link" href="../report/changeReport.jsp">Modificar</a>
             <a class="content-header_link" href="../session/home.jsp">Regresar</a>
         </header>
         <section>
             <nav>
-                <form>
-                <fieldset >
+                <form action="/GestionBiblioteca/ControlReporte" method="POST">
+                <fieldset>
                     <legend>Reporte</legend>
                     <div class="content-center_line">
-                        <label for="matricula">Fecha:</label>
-                        <input class="right" type="date" id="matricula" name="matricula"  > 
-                    </div>
+                        <label for="fech">Fecha:</label>
+                        <input class="right" type="text" id="fech" name="fechH"></div>
                     <div class="content-center_line">
-                        <label for="ap">Fecha de inicio:</label>
-                        <input class="right" type="date" id="ap"  name="ap"   > 
-                    </div>
+                        <label for="Ifec">Fecha de inicio:</label>
+                        <input class="right" type="date" id="Ifec"  name="fechI"></div>
                     <div class="content-center_line">
-                        <label for="am">Fecha de fin:</label>
-                        <input class="right" type="date" id="am" name="am"  > 
-                    </div>
+                        <label for="Ffec">Fecha de fin:</label>
+                        <input class="right" type="date" id="Ffec" name="fechF"></div>
                     <div class="content-center_line">
                         <label for="nombre">Usuario:</label>
-                        <label class="right"> dasdasd sad</label> 
-                    </div>
+                        <label class="right"><%=user.getIdUsuario() %></label></div>
                     <div class="content-center_line">
-                        <input class="button" type="submit" value="Generar">
-                    </div>
-
+                        <input class="button" type="hidden" value="geRep" name="clave"></div>
+                        <input class="button" type="submit" value="Generar"></div>
                 </fieldset> 
                 <form>
             </nav>
@@ -56,40 +60,58 @@
                 <table>
                     <thead>
                         <tr>
-                            <th style="width: 2em;">Identificador</th>
-                            <th style="width: 2em;">Fecha</th>
-                            <th style="width: 2em;">Fecha inicio</th>
-                            <th style="width: 2em;">Fecha fin</th>
-                            <th style="width: 6em;">Usuario</th>
-                            <th style="width: 2em;">Doc</th>
+                            <th style="width: 3em;">Identificador</th>
+                            <th style="width: 3em;">Fecha</th>
+                            <th style="width: 3em;">Fecha inicio</th>
+                            <th style="width: 3em;">Fecha fin</th>
+                            <th style="width: 3em;">Usuario</th>
                         </tr>
                     </thead>
                     <tbody>
                         <%
-                            for (int i = 0; i < 5; i++) {
-
+                            if(sec.getListaReporte() != null){
+                            for (Reporte x : sec.getListaReporte()) {
                             %>
                     
                             <tr>
-                                <th>123456789012</th>
-                                <th><%=i %></th>
-                                <th><%=i %></th>
-                                <th><%=i %></th>
-                                <th><%=i %></th>
-                                <th>
-                                    <form>
-                                        <input class="button" style="margin: 0;" type="submit" value="D">
-                                    </form>
-                                </th>
+                                <th onclick="clicF(this)"id="<%=x.getIdReporte()%>"><%=x.getIdReporte() %></th>
+                                <th><%=x.getFecha() %></th>
+                                <th><%=x.getFechaInicio() %></th>
+                                <th><%=x.getFechaFin() %></th>
+                                <th><%=x.getIdUsuario() %></th>
                             </tr>
                             <%
-                                }
+                                }}
                             %>
                         
                     </tbody>
               </table>
             </article>
         </section>
-        <footer class="content-footer"></footer>
+        <footer class="content-footer">
+            <ul class="content">
+                    <%
+                        if (sec.getMensaje() != null) {
+                    %>
+                    <li><a class="content-item_footer" href=""><%= sec.getMensaje() %></a></li>
+                    <%
+                        sec.setMensaje(null);
+                        }
+                    %>
+            </ul>
+        </footer>
+        <script>
+            document.getElementById('btnChan').addEventListener('click', ()=> {
+                let hiden = document.getElementById('cl');
+                hiden.value = 'chan';
+            });
+            document.getElementById('btnSear').addEventListener('click', ()=> {
+                let hiden = document.getElementById('cl');
+                hiden.value = 'sear';
+            });
+            function clicF (e) {
+               document.getElementById('buscar').value = e.id;
+            }
+        </script>
     </body>
 </html>

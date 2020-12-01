@@ -4,6 +4,10 @@
     Author     : DanielHernandezReyes
 --%>
 
+<%@page import="mx.com.biblioteca.modelo.beans.Servicio"%>
+<%@page import="mx.com.biblioteca.modelo.beans.Carrera"%>
+<%@page import="mx.com.biblioteca.modelo.beans.Reporte"%>
+<%@page import="mx.com.biblioteca.modelo.Session"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -14,36 +18,42 @@
         <title>Change report</title>
     </head>
     <body>
+        <%
+            HttpSession sesion = request.getSession();
+            Session sec = (Session) sesion.getAttribute("user");
+        %>
         <header class="content-header">
             
             <a class="content-header_link" href="addReport.jsp">Regresar</a>
         </header>
         <section>
             <nav>
-                <form action="" method="POST">
+                <form action="/GestionBiblioteca/ControlReporte" method="POST">
                     <fieldset >
                         <legend>Reporte</legend>
+                        <%
+                            if(sec.getListaReporte()!=null){
+                             Reporte x = sec.getListaReporte().get(0);
+                        %>
                         <div class="content-center_line">
-                            <label for="matricula">Fecha:</label>
-                            <input class="right" type="date" id="matricula" name="matricula"  > 
-                        </div>
+                            <label>ID:</label><input class="right" name="idrep" value="<%=x.getIdReporte() %>" readonly </label></div>
                         <div class="content-center_line">
-                            <label for="ap">Fecha de inicio:</label>
-                            <input class="right" type="date" id="ap"  name="ap"   > 
-                        </div>
+                            <label>Fecha:</label><label class="right"><%=x.getFecha()%></label></div>
                         <div class="content-center_line">
-                            <label for="am">Fecha de fin:</label>
-                            <input class="right" type="date" id="am" name="am"  > 
-                        </div>
+                            <label>Fecha de inicio:</label><label class="right"><%=x.getFechaInicio() %></label></div>
                         <div class="content-center_line">
-                            <label for="nombre">Usuario:</label>
-                            <label class="right">ads sad</label>
-                        </div>
+                            <label>Fecha de fin:</label><label class="right"><%=x.getFechaFin() %></label></div>
                         <div class="content-center_line">
-                            <input class="button" type="submit" value="Actualizar">
+                            <label>Usuario:</label><label class="right"><%=x.getIdUsuario() %></label></div>
+                        <div class="content-center_line">
+                            <input type="hidden" value="gdoC" name="clave">
+                            <input class="button" type="submit" value="Generar DOC">
                         </div>
+                        <%
+                            }
+                        %>
                     </fieldset> 
-                <form>
+                </form>
             </nav>
             <article> 
                 <table>
@@ -55,17 +65,16 @@
                     </thead>
                     <tbody>
                         <%
-                            for (int i = 0; i < 5; i++) {
-
-                            %>
-                    
+                            if(sec.getListaReporte()!=null){
+                                Reporte x = sec.getListaReporte().get(0);
+                                for(Carrera c: x.getDataCarrera()){
+                        %>
                             <tr>
-                                <th>123456789012</th>
-                                <th><%=i %></th>
-                                
+                                <th><%=c.getNombre() %></th>
+                                <th><%=c.getIdCarrera() %></th>
                             </tr>
                             <%
-                                }
+                                }}
                             %>
                         
                     </tbody>
@@ -73,23 +82,23 @@
                 <table style="margin-top: 1em;">
                     <thead>
                         <tr>
-                            <th style="width: 2em;">Motivo</th>
+                            <th style="width: 2em;">Servicio</th>
                             <th style="width: 2em;">Cantidad</th>
                         </tr>
                     </thead>
                     <tbody>
                         <%
-                            for (int i = 0; i < 5; i++) {
-
-                            %>
+                            if(sec.getListaReporte()!=null){
+                                Reporte x = sec.getListaReporte().get(0);
+                                for(Servicio s: x.getDataServicio()){
+                        %>
                     
                             <tr>
-                                <th>123456789012</th>
-                                <th><%=i %></th>
-                                
+                                <th><%=s.getNombre() %></th>
+                                <th><%=s.getIdServicio() %></th>
                             </tr>
                             <%
-                                }
+                                }}
                             %>
                         
                     </tbody>

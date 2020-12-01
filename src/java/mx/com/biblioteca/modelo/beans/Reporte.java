@@ -18,8 +18,8 @@ public class Reporte {
     private Date fechaInicio;
     private Date fechaFin;
     private String idUsuario;
-    private ArrayList<Integer> dataCarrera;
-    private ArrayList<Integer> dataServicio;
+    private ArrayList<Carrera> dataCarrera;
+    private ArrayList<Servicio> dataServicio;
 
     public Reporte() {
     }
@@ -72,19 +72,19 @@ public class Reporte {
         this.idUsuario = idUsuario;
     }
 
-    public ArrayList<Integer> getDataCarrera() {
+    public ArrayList<Carrera> getDataCarrera() {
         return dataCarrera;
     }
 
-    public void setDataCarrera(ArrayList<Integer> dataCarrera) {
+    public void setDataCarrera(ArrayList<Carrera> dataCarrera) {
         this.dataCarrera = dataCarrera;
     }
 
-    public ArrayList<Integer> getDataServicio() {
+    public ArrayList<Servicio> getDataServicio() {
         return dataServicio;
     }
 
-    public void setDataServicio(ArrayList<Integer> dataServicio) {
+    public void setDataServicio(ArrayList<Servicio> dataServicio) {
         this.dataServicio = dataServicio;
     }
     
