@@ -35,7 +35,7 @@
                     <li><a class="content-item" href="../visit/changeVisit.jsp">Visitas</a></li>
                     <li><a class="content-item" href="../service/service.jsp">Servicios</a></li>
                     <li><a class="content-item" href="../career/career.jsp">Carreras</a></li>
-                    <li><a class="content-item" href="/GestionBiblioteca/TempControlServicio" target="blank">Control</a></li>
+                    <li><a class="content-item" href="/GestionBiblioteca/TempControlServicio?cl=re" target="blank">Control</a></li>
                     <%
                         if(user.getTipo().equals("ADM")) {
                     %>

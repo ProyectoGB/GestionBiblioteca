@@ -114,4 +114,64 @@ public class VisitaDAO {
         cn.getConexion().close();
         return lser;
     }
+    
+    public ArrayList<Visita> listaVisita(Visita v) throws SQLException, Exception{
+        String sql = "select visita.idVisita, fecha, horaEntrada, horaSalida, visita.estado, matricula, count(idServicio) as count " +
+                    "from visita join tienen on(visita.idVisita=tienen.idVisita) WHERE visita.idVisita >= ? group by visita.idVisita LIMIT 10;";
+        Conexion cn = new Conexion();
+        cn.conexionUsuarioEn();
+        cn.conectar();
+        cn.prepareStatement(sql);
+        cn.getEstado().setInt(1, v.getIdVisita());
+        cn.setResultado(cn.getEstado().executeQuery());
+        ArrayList<Visita> lser = new ArrayList<>();
+        while(cn.getResultado().next()){
+            Visita s = new Visita();
+            s.setIdVisita(cn.getResultado().getInt("idVisita"));
+            s.setFecha(cn.getResultado().getDate("fecha"));
+            s.setHoraEntrada(cn.getResultado().getTime("horaEntrada"));
+            s.setHoraSalida(cn.getResultado().getTime("horaSalida"));
+            s.setEstado(cn.getResultado().getString("estado"));
+            Alumno a = new Alumno();
+            a.setMatricula(cn.getResultado().getString("matricula"));
+            s.setAlumno(a);
+            ArrayList<Servicio> lis = new ArrayList<>();
+            Servicio ser = new Servicio();
+            ser.setIdServicio(cn.getResultado().getInt("count"));
+            lis.add(ser);
+            s.setServicios(lis);
+            lser.add(s);
+        }
+        cn.getEstado().close();
+        cn.getConexion().close();
+        return lser;
+    }
+    
+    public Visita buscarVisita(Visita s) throws SQLException, Exception{
+        String sql = "SELECT fecha, horaEntrada, horaSalida, estado, matricula FROM visita WHERE idVisita = ?;";
+        Conexion cn = new Conexion();
+        cn.conexionAlumno();
+        cn.conectar();
+        cn.prepareStatement(sql);
+        cn.getEstado().setInt(1, s.getIdVisita());
+        cn.setResultado(cn.getEstado().executeQuery());
+        boolean estado = false;
+        while(cn.getResultado().next()){
+            s.setFecha(cn.getResultado().getDate("fecha"));
+            s.setHoraEntrada(cn.getResultado().getTime("horaEntrada"));
+            s.setHoraSalida(cn.getResultado().getTime("horaSalida"));
+            s.setEstado(cn.getResultado().getString("estado"));
+            Alumno a = new Alumno();
+            a.setMatricula(cn.getResultado().getString("matricula"));
+            s.setAlumno(a);
+            estado = true;
+        }
+        cn.getEstado().close();
+        cn.getConexion().close();
+        if(estado)
+            return s;
+        else
+            return null;
+    }
+    
 }

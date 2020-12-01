@@ -6,6 +6,7 @@
 package mx.com.biblioteca.controlador;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
@@ -14,16 +15,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import mx.com.biblioteca.modelo.ServicioDAO;
 import mx.com.biblioteca.modelo.Session;
-import mx.com.biblioteca.modelo.beans.Servicio;
+import mx.com.biblioteca.modelo.VisitaDAO;
+import mx.com.biblioteca.modelo.beans.Visita;
 
 /**
  *
  * @author DanielHernandezReyes
  */
-@WebServlet(name = "TempControlServicio", urlPatterns = {"/TempControlServicio"})
-public class TempControlServicio extends HttpServlet {
+@WebServlet(name = "ControlVisitaCambio", urlPatterns = {"/ControlVisitaCambio"})
+public class ControlVisitaCambio extends HttpServlet {
 
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -34,29 +35,8 @@ public class TempControlServicio extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession sesion = request.getSession();
-        Session sec = (Session) sesion.getAttribute("user");
-        try {    
-            ServicioDAO crl = new ServicioDAO();
-            ArrayList<Servicio> ls = crl.listarServicio();
-            sec.setListaServicio(ls);
-            sesion.setAttribute("user", sec);
-                response.sendRedirect("visit/addVisit.jsp");
-            
-        } catch (SQLException ex) {
-            sesion.setAttribute("user", sec);
-            sec.setErrorMsj("Error en la conexión con el SGBD:");
-            sec.setErrorExe(ex.toString());
-            sec.setErrorUrl("/GestionBiblioteca/session/home.jsp");
-            response.sendRedirect("error/error.jsp");
-        } catch (Exception ex) {
-            sesion.setAttribute("user", sec);
-            sec.setErrorMsj(ex.getMessage());
-            sec.setErrorExe(ex.toString());
-            sec.setErrorUrl("/GestionBiblioteca/session/home.jsp");
-            response.sendRedirect("error/error.jsp");
-        }
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
     }
 
     /**
@@ -69,7 +49,41 @@ public class TempControlServicio extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
+        String clave = request.getParameter("clave");
+        HttpSession sesion = request.getSession();
+        Session sec = (Session) sesion.getAttribute("user");
+        try{
+        switch(clave){
+            case "bust":
+                Visita vst = new Visita();
+                vst.setIdVisita(Integer.parseInt(request.getParameter("buscar")));
+                VisitaDAO crl = new VisitaDAO();
+                ArrayList<Visita> ser = crl.listaVisita(vst);
+                sec.setListaVisita(ser);
+                sec.setMensaje("Lista generada");
+                sesion.setAttribute("user", sec);
+                response.sendRedirect("visit/changeVisit.jsp");
+            break;
+        }
+        } catch (SQLException ex) {
+            sesion.setAttribute("user", sec);
+            sec.setErrorMsj("Error en la conexión con el SGBD:");
+            sec.setErrorExe(ex.toString());
+            sec.setErrorUrl("/GestionBiblioteca/session/home.jsp");
+            response.sendRedirect("error/error.jsp");
+        } catch (NumberFormatException ex) {
+            sesion.setAttribute("user", sec);
+            sec.setErrorMsj("El identificador proporcionado no es valido:");
+            sec.setErrorExe(ex.toString());
+            sec.setErrorUrl("/GestionBiblioteca/visit/changeVisit.jsp");
+            response.sendRedirect("error/error.jsp");
+        } catch (Exception ex) {
+            sesion.setAttribute("user", sec);
+            sec.setErrorMsj(ex.getMessage());
+            sec.setErrorExe(ex.toString());
+            sec.setErrorUrl("/GestionBiblioteca/session/home.jsp");
+            response.sendRedirect("error/error.jsp");
+        }
     }
 
     /**
@@ -80,6 +94,6 @@ public class TempControlServicio extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }
+    }// </editor-fold>
 
 }
