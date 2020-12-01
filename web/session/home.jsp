@@ -24,11 +24,7 @@
         <header>
             <nav>
                 <ul class="content">
-                    
-                        <form class="content-header" action="/GestionBiblioteca/TempControlCarrera" method="POST">
-                            <input class="content-line_input" type="submit" value="Alumnos"/>
-                            
-                        </form>
+                    <li><a class="content-item" href="/GestionBiblioteca/TempControlCarrera">Alumnos</a></li>
                     <%
                         if(user.getTipo().equals("ADM")) {
                     %>
@@ -39,7 +35,7 @@
                     <li><a class="content-item" href="../visit/changeVisit.jsp">Visitas</a></li>
                     <li><a class="content-item" href="../service/service.jsp">Servicios</a></li>
                     <li><a class="content-item" href="../career/career.jsp">Carreras</a></li>
-                    <li><a class="content-item" href="../visit/addVisit.jsp" target="blank">Control</a></li>
+                    <li><a class="content-item" href="/GestionBiblioteca/TempControlServicio" target="blank">Control</a></li>
                     <%
                         if(user.getTipo().equals("ADM")) {
                     %>
